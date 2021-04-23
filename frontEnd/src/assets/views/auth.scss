@@ -1,0 +1,48 @@
+.auth-page-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .auth-page-content {
+        background: $mainCard;
+        border-radius: 5px;
+        min-width: 300px;
+        .element-section {
+            text-align: center;
+            .element-section-content {
+                padding: 15px;
+                .element-section-title {
+                    font-weight: bold;
+                }
+                .auth-form {
+                    display: flex;
+                    flex-direction: column;
+                    .auth-input {
+                        color: $mainLight;
+                        border-bottom: 1px solid $mainBorder;
+                        border-radius: 0px;
+                        margin: 10px 0;
+                        padding: 10px 0px;
+                        width: 100%;
+                        &:focus {
+                            border-color: $mainLight;
+                        }
+                    }
+                }
+                .form-btn {
+                    color: $mainCard;
+                    border: 1px solid $mainLight;
+                    background: $mainLight;
+                    font-weight: bold;
+                    width: 45%;
+                    margin: 0 5px;
+                    height: 39.2px;
+                    &:hover {
+                        background: transparent;
+                        color: $mainLight;
+                    }
+                }
+            }
+        }
+    }
+}

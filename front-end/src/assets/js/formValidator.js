@@ -2,6 +2,7 @@ class FormValidator {
     regex = {
         email: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
     }
+
     validateRegisterForm(formData) {
         const errors = {};
 
@@ -11,6 +12,15 @@ class FormValidator {
 
         if (!formData.confirmPassword) errors.confirmPassword = 'Please confirm your password';
         else if (formData.password !== formData.confirmPassword) errors.confirmPassword = 'Passwords not matching';
+
+        return errors;
+    }
+
+    validateLoginForm(formData) {
+        const errors = {};
+
+        if (!formData.password) errors.password = 'Password is required';
+        if (!formData.email) errors.email = 'Email is required';
 
         return errors;
     }

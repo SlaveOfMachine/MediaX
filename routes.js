@@ -6,6 +6,9 @@ const router = express.Router();
 // Routes
 router.get('/ping', (req, res) => res.send({message: 'Api for Mediax'}));
 
-router.post('/auth/register', (req, res) => Controllers.Auth.register(req, res));
+{
+    router.post('/auth/register', (req, res) => Controllers.Auth.register(req, res));
+    router.post('/auth/login', (req, res) => Controllers.Auth.login(req, res));
+}
 
 module.exports = router;

@@ -13,27 +13,75 @@ class AuthController extends FormController {
 
     async register(request, response) {
         const params = request.body;
-        const validatedData = this.validateRegisterForm(params, response);
-        await this.emailUsed(validatedData.email, response);
-        await User.create(validatedData).catch(errorResponse => {
-                logger.error(errorResponse);
-                this.handleQueryError(errorResponse, response);
-            }).then(row => {
-                const inserted = row && row.id;
-                if (inserted) response.status(200).json({message: 'User Registered'})
-                response.status(500).json({message: 'Failed to register'});
-            });
-
+        let queryResponse = { status: 401, message: 'Request Failed' };
+        const validatedData = this.validateRegisterForm(params);
+        if (validatedData.status != 200) {
+            queryResponse.message = validatedData.message;
+            queryResponse.status = 422;
+        } else {
+            queryResponse = await this.emailUsed(validatedData.fields.email);
+            if (queryResponse.status === 200) {
+                await User.create(validatedData.fields).catch(errorResponse => {
+                    queryResponse = this.handleQueryError(errorResponse);
+                }).then(row => {
+                    queryResponse = this.checkInsertSuccess(row);
+                });
+            }
+        }
+        return response.status(queryResponse.status).json({message: queryResponse.message});
     }
 
-    async emailUsed(email, response) {
-        User.findAll({ where: { email } })
-        .catch(errorResponse => {
-            logger.error(errorResponse);
-            this.handleQueryError(errorResponse, response);
-        }).then(row => {
-            if (row && row.length) response.status(401).json({message: 'Email already in use'});
-        })
+    async login(request, response) {
+        const params = request.body;
+        let queryResponse = { status: 401, message: 'Request Failed' };
+        const validatedData = this.validateLoginForm(params);
+        const { email, password } = validatedData.fields;
+
+        if (validatedData.status != 200) {
+            queryResponse.message = validatedData.message;
+            queryResponse.status = 422;
+        } else {
+            await User.findOne({ where: { email } }).catch(errorResponse => {
+                    logger.error(errorResponse);
+                    queryResponse = this.handleQueryError(errorResponse);
+                }).then(row => {
+                    queryResponse = this.authenticate(row, password);
+                })
+        }
+        logger.info(queryResponse);
+        return response.status(queryResponse.status).json({message: queryResponse.message});
+    }
+
+    authenticate(user, password) {
+        const response = { status: 401, message: 'Email is not registered' };
+        if (user) {
+            const valid = this.checkPassword(user, password);
+            if (!valid) {
+                response.message = 'Failed to login';
+            } else {
+                response.status = 200;
+                response.message = 'User authenticated';
+            }
+        }
+        return response;
+    }
+
+    async emailUsed(email) {
+        let queryResponse = { status: 401, message: 'Request Failed' };
+        await User.findAll({ where: { email } })
+            .catch(errorResponse => {
+                logger.error(errorResponse);
+                queryResponse = this.handleQueryError(errorResponse);
+            }).then(row => {
+                if (row && row.length) {
+                    queryResponse.status = 401;
+                    queryResponse.message = 'Email already in use';
+                } else {
+                    queryResponse.status = 200;
+                    queryResponse.message = 'Email is available';
+                }
+            })
+        return queryResponse;
     }
 }
 

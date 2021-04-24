@@ -1,16 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from '../config/axios';
 import BaseInput from '../components/common/BaseInput';
 import FormValidator from '../assets/js/formValidator';
+import axios from '../config/axios';
 
 class Login extends React.Component {
     state = {
         formParams: {
-            name: 'Gaurav Singh',
             email: 'gau94rav@gmail.com',
             password: 'Channu@123',
-            confirmPassword: 'Channu@123',
         },
         validated: false,
         liveValidate: false,
@@ -27,12 +25,11 @@ class Login extends React.Component {
         })
     }
 
-    register = async () => {
+    login = async () => {
         await this.validate();
-
         if (this.state.validated) {
             const data = this.state.formParams;
-            axios.post('auth/register', data)
+            axios.post('auth/login', data)
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
         }
@@ -40,7 +37,7 @@ class Login extends React.Component {
 
     validate = () => {
         const formData = this.state.formParams;
-        const errors = FormValidator.validateRegisterForm(formData);
+        const errors = FormValidator.validateLoginForm(formData);
         const validated = Object.keys(errors).length === 0;
 
         this.setState({
@@ -53,19 +50,16 @@ class Login extends React.Component {
     render() {
         const { errors, formParams } = this.state;
         const {
-            name,
             email,
             password,
-            confirmPassword,
         } = formParams;
-
         return (
             <div className='auth-page-container'>
                 <div className="auth-page-content">
                     <div className="element-header element-section">
                         <div className="element-section-content">
                             <div className="element-section-title">
-                                REGISTER
+                                LOGIN
                             </div>
                         </div>
                     </div>
@@ -74,21 +68,11 @@ class Login extends React.Component {
                             <div className="auth-form">
                                 <BaseInput
                                     className='base-input auth-input'
-                                    placeholder="NAME"
-                                    name="name"
-                                    value={name}
-                                    onInputChange={this.handleInputs}
-                                    onEnterPressed={this.register}
-                                    type="text"
-                                    error={errors.name}
-                                />
-                                <BaseInput
-                                    className='base-input auth-input'
                                     placeholder="EMAIL"
                                     name="email"
                                     value={email}
                                     onInputChange={this.handleInputs}
-                                    onEnterPressed={this.register}
+                                    onEnterPressed={this.login}
                                     type="email"
                                     error={errors.email}
                                 />
@@ -98,28 +82,18 @@ class Login extends React.Component {
                                     name="password"
                                     value={password}
                                     onInputChange={this.handleInputs}
-                                    onEnterPressed={this.register}
+                                    onEnterPressed={this.login}
                                     type="password"
                                     error={errors.password}
-                                />
-                                <BaseInput
-                                    className='base-input auth-input'
-                                    placeholder="CONFIRM PASSWORD"
-                                    name="confirmPassword"
-                                    value={confirmPassword}
-                                    onInputChange={this.handleInputs}
-                                    onEnterPressed={this.register}
-                                    type="password"
-                                    error={errors.confirmPassword}
                                 />
                             </div>
                         </div>
                     </div>
                     <div className="element-foot element-section">
                         <div className="element-section-content">
-                            <button className="base-button form-btn" onClick={this.register}>REGISTER</button>
-                            <Link to='/'>
-                                <button className="base-button form-btn">LOGIN</button>
+                            <button className="base-button form-btn" onClick={this.login}>LOGIN</button>
+                            <Link to='/register'>
+                                <button className="base-button form-btn">REGISTER</button>
                             </Link>
                         </div>
                     </div>

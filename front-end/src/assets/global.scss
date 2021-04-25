@@ -41,6 +41,19 @@ body {
         cursor: pointer;
         transition: 0.3s;
     }
+
+    .base-input-toggle {
+        position: absolute;
+        right: 1em;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: max-content;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+    }
     
     .axios-loader-container {
         position: fixed;

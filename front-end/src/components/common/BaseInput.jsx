@@ -1,7 +1,9 @@
 import React from 'react';
 
 class BaseInput extends React.Component {
-    state =  {}
+    state =  {
+        showPassword: null,
+    }
 
     handleChange = (event) => {
         if (this.props.onInputChange) {
@@ -18,6 +20,10 @@ class BaseInput extends React.Component {
         }
     }
 
+    iconEvent = (e) => {
+        this.props.eventTriggered(e);
+    }
+
     render() {
         const {
             className,
@@ -26,15 +32,18 @@ class BaseInput extends React.Component {
             type,
             value,
             error,
-
+            toggleText,
         } = this.props;
+
+        const { showPassword } = this.state;
+
         return (
-            <div>
+            <div style={{position: 'relative'}}>
                 <input
                     className={`${className} ${ error ? 'fail-border' : '' }`}
                     placeholder={placeholder}
                     name={name}
-                    type={type}
+                    type={showPassword ? 'text' : type}
                     value={value}
                     onChange={this.handleChange}
                     onKeyPress={this.checkEnterPressed}
@@ -42,9 +51,22 @@ class BaseInput extends React.Component {
                 <div className="error-message">
                     { error }
                 </div>
+                <ShowToggle
+                    event={this.iconEvent}
+                    toggleText={toggleText}
+                 />
             </div>
         )
     }
+}
+
+function ShowToggle(props) {
+    if (props.toggleText) {
+        return <div onClick={props.event} className='base-input-toggle'>
+            { props.toggleText }
+        </div>
+    }
+    return null;
 }
 
 export default BaseInput;

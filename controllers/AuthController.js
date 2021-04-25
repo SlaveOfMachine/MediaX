@@ -48,7 +48,6 @@ class AuthController extends FormController {
                     queryResponse = this.authenticate(row, password);
                 })
         }
-        logger.info(queryResponse);
         return response.status(queryResponse.status).json({message: queryResponse.message});
     }
 

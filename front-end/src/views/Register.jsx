@@ -1,53 +1,31 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../config/axios';
 import BaseInput from '../components/common/BaseInput';
-import FormValidator from '../assets/js/formValidator';
+import BaseHelper from '../components/common/BaseHelper';
 
-class Register extends React.Component {
+class Register extends BaseHelper {
+
     state = {
         formParams: {
-            name: 'Gaurav Singh',
-            email: 'gau94rav@gmail.com',
-            password: 'Channu@123',
-            confirmPassword: 'Channu@123',
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
         },
         validated: false,
         liveValidate: false,
         errors: {},
-    }
-
-    handleInputs = (event) => {
-        const formParams = this.state.formParams;
-        formParams[event.target.name] = event.target.value;
-
-        if (this.state.liveValidate) this.validate();        
-        this.setState({
-            formParams,
-        })
+        showPassword: false,
     }
 
     register = async () => {
-        await this.validate();
-
+        this.validate('validateRegisterForm');
         if (this.state.validated) {
             const data = this.state.formParams;
             axios.post('auth/register', data)
                 .then(response => console.log(response))
                 .catch(error => console.log(error))
         }
-    }
-
-    validate = () => {
-        const formData = this.state.formParams;
-        const errors = FormValidator.validateRegisterForm(formData);
-        const validated = Object.keys(errors).length === 0;
-
-        this.setState({
-            validated,
-            liveValidate: true,
-            errors,
-        })
     }
 
     render() {

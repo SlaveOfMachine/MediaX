@@ -1,32 +1,22 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import BaseInput from '../components/common/BaseInput';
-import FormValidator from '../assets/js/formValidator';
+import BaseHelper from '../components/common/BaseHelper';
 import axios from '../config/axios';
 
-class Login extends React.Component {
+class Login extends BaseHelper {
     state = {
         formParams: {
-            email: 'gau94rav@gmail.com',
-            password: 'Channu@123',
+            email: '',
+            password: '',
         },
         validated: false,
         liveValidate: false,
         errors: {},
-    }
-
-    handleInputs = (event) => {
-        const formParams = this.state.formParams;
-        formParams[event.target.name] = event.target.value;
-
-        if (this.state.liveValidate) this.validate();        
-        this.setState({
-            formParams,
-        })
+        showPassword: false,
     }
 
     login = async () => {
-        await this.validate();
+        this.validate('validateLoginForm');
         if (this.state.validated) {
             const data = this.state.formParams;
             axios.post('auth/login', data)
@@ -35,20 +25,8 @@ class Login extends React.Component {
         }
     }
 
-    validate = () => {
-        const formData = this.state.formParams;
-        const errors = FormValidator.validateLoginForm(formData);
-        const validated = Object.keys(errors).length === 0;
-
-        this.setState({
-            validated,
-            liveValidate: true,
-            errors,
-        })
-    }
-
     render() {
-        const { errors, formParams } = this.state;
+        const { errors, formParams, showPassword } = this.state;
         const {
             email,
             password,
@@ -83,8 +61,10 @@ class Login extends React.Component {
                                     value={password}
                                     onInputChange={this.handleInputs}
                                     onEnterPressed={this.login}
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     error={errors.password}
+                                    toggleText={showPassword ? 'HIDE' : 'SHOW'}
+                                    eventTriggered={this.passwordTypeSwitch}
                                 />
                             </div>
                         </div>

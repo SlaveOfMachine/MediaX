@@ -35,6 +35,8 @@ function toggleMessage(error = null) {
 
 axios.interceptors.request.use((config) => {
     toggleLoader();
+    const token = localStorage.getItem('accessToken');
+    config.headers.common['authorization'] = `Bearer ${token}`;
     config.url = `${baseUrl}/api/${config.url}`;
     return config;
 }, (error) => {

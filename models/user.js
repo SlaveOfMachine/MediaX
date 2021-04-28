@@ -12,10 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     admin: DataTypes.INTEGER,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    refreshToken: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    },
   });
   return User;
 };

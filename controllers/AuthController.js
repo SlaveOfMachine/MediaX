@@ -1,7 +1,7 @@
 const User = require('../models').User;
-const FormController = require('./FormController');
+const AuthHelper = require('../helpers/AuthHelper');
 
-class AuthController extends FormController {
+class AuthController extends AuthHelper {
 
     constructor() {
         super();
@@ -48,7 +48,13 @@ class AuthController extends FormController {
                     queryResponse = this.authenticate(row, password);
                 })
         }
-        return response.status(queryResponse.status).json({message: queryResponse.message});
+        return response
+            .status(queryResponse.status)
+            .json({
+                message: queryResponse.message,
+                token: queryResponse.token || null,
+                refresh_token: queryResponse.refreshToken
+            });
     }
 
     authenticate(user, password) {
@@ -58,8 +64,11 @@ class AuthController extends FormController {
             if (!valid) {
                 response.message = 'Failed to login';
             } else {
+                const tokens = this.getAuthToken(user);
                 response.status = 200;
                 response.message = 'User authenticated';
+                response.token = tokens.accessToken;
+                response.refreshToken = tokens.refreshToken;
             }
         }
         return response;

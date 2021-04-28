@@ -13,14 +13,15 @@ class Login extends BaseHelper {
         liveValidate: false,
         errors: {},
         showPassword: false,
+        authLevel: false,
     }
 
     login = async () => {
-        this.validate('validateLoginForm');
+        await this.validate('login');
         if (this.state.validated) {
             const data = this.state.formParams;
             axios.post('auth/login', data)
-                .then(response => console.log(response))
+                .then(response => this.handleAuthResponse(response))
                 .catch(error => console.log(error))
         }
     }

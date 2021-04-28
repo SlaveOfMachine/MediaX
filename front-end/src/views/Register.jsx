@@ -16,10 +16,11 @@ class Register extends BaseHelper {
         liveValidate: false,
         errors: {},
         showPassword: false,
+        authPage: false,
     }
 
     register = async () => {
-        this.validate('validateRegisterForm');
+        await this.validate('register');
         if (this.state.validated) {
             const data = this.state.formParams;
             axios.post('auth/register', data)
@@ -29,7 +30,7 @@ class Register extends BaseHelper {
     }
 
     render() {
-        const { errors, formParams } = this.state;
+        const { errors, formParams, showPassword } = this.state;
         const {
             name,
             email,
@@ -77,8 +78,10 @@ class Register extends BaseHelper {
                                     value={password}
                                     onInputChange={this.handleInputs}
                                     onEnterPressed={this.register}
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     error={errors.password}
+                                    eventTriggered={this.passwordTypeSwitch}
+                                    toggleText={showPassword ? 'HIDE' : 'SHOW'}
                                 />
                                 <BaseInput
                                     className='base-input auth-input'
@@ -87,7 +90,7 @@ class Register extends BaseHelper {
                                     value={confirmPassword}
                                     onInputChange={this.handleInputs}
                                     onEnterPressed={this.register}
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     error={errors.confirmPassword}
                                 />
                             </div>

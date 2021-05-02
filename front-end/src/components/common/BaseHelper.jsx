@@ -59,6 +59,7 @@ class BaseHelper extends React.Component {
         localStorage.setItem('accessToken', token);
         window.location.reload();
     }
+
 }
 
 export default BaseHelper;

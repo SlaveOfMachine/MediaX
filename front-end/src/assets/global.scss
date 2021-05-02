@@ -55,6 +55,9 @@ body {
     .base-link {
         text-decoration: none;
         color: $mainLight;
+        border: none;
+        background: none;
+        cursor: pointer;
     }
     
     .base-button {
@@ -129,17 +132,6 @@ body {
         z-index: 50;
     }
 
-    @keyframes slide-bottom {
-        from {
-            opacity: 0;
-            top: 0px;
-        }
-        to {
-            opacity: 1;
-            top: 20px;
-        }
-    }
-
     .error-message {
         color: $mainRed;
         text-align: left;
@@ -161,12 +153,40 @@ body {
         justify-content: space-between;
         align-items: center;
         padding: 0 15px;
+        .nav-brand-icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-menu {
+            a {
+                margin: 0 10px;
+            }
+            button {
+                font-size: 16px;
+            }
+        }
     }
 
     .smooth-shadow {
         box-shadow:
             0 2.8px 2.2px rgba(0, 0, 0, 0.034),
             0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    }
+
+    .menu-icon-container {
+        width: 30px;
+        cursor: pointer;
+        .menu-line {
+            border: 1px solid $mainBorder;
+            width: 100%;
+            margin: 10px 0;
+        }
+    }
+    
+    .page-not-found {
+        text-align: center;
+        position: relative;
     }
 
     @keyframes spin{
@@ -182,6 +202,42 @@ body {
           -ms-transform: rotate(360deg);
           -o-transform: rotate(360deg);
           transform: rotate(360deg);
+        }
+    }
+
+    @keyframes slide-bottom {
+        from {
+            opacity: 0;
+            top: 0px;
+        }
+        to {
+            opacity: 1;
+            top: 20px;
+        }
+    }
+
+
+    .mobile-element { display: none; }
+    @media (max-width: 960px) {
+        .desktop-element { display: none !important; }
+        .mobile-element { display: block; }
+        .base-navbar {
+            flex-direction: column;
+            height: max-content;
+            .nav-brand-icons {
+                width: 100%
+            }
+            .nav-menu {
+                display: flex;
+                flex-direction: column !important;
+                width: 100%;
+                a,
+                button {
+                    margin: 10px 0;
+                    text-align: left;
+                    padding: 0px;
+                }
+            }
         }
     }
 }

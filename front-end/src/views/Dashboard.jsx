@@ -9,7 +9,7 @@ class Dashboard extends BaseHelper {
     }
 
     componentDidMount() {
-        // localStorage.removeItem('accessToken');
+
     }
 
     render() {

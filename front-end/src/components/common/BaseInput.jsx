@@ -1,7 +1,9 @@
 import React from 'react';
 
 class BaseInput extends React.Component {
-    state =  {}
+    state =  {
+        showPassword: null,
+    }
 
     handleChange = (event) => {
         if (this.props.onInputChange) {
@@ -18,6 +20,10 @@ class BaseInput extends React.Component {
         }
     }
 
+    iconEvent = (e) => {
+        this.props.eventTriggered(e);
+    }
+
     render() {
         const {
             className,
@@ -26,25 +32,43 @@ class BaseInput extends React.Component {
             type,
             value,
             error,
-
+            toggleText,
         } = this.props;
+
+        const { showPassword } = this.state;
+
         return (
-            <div>
-                <input
-                    className={`${className} ${ error ? 'fail-border' : '' }`}
-                    placeholder={placeholder}
-                    name={name}
-                    type={type}
-                    value={value}
-                    onChange={this.handleChange}
-                    onKeyPress={this.checkEnterPressed}
-                />
+            <div style={{position: 'relative'}}>
+                <div className="base-input-container" style={{position: 'relative'}}>
+                    <input
+                        className={`${className} ${ error ? 'fail-border' : '' }`}
+                        placeholder={placeholder}
+                        name={name}
+                        type={showPassword ? 'text' : type}
+                        value={value}
+                        onChange={this.handleChange}
+                        onKeyPress={this.checkEnterPressed}
+                    />
+                    <ShowToggle
+                        event={this.iconEvent}
+                        toggleText={toggleText}
+                    />
+                </div>
                 <div className="error-message">
                     { error }
                 </div>
             </div>
         )
     }
+}
+
+function ShowToggle(props) {
+    if (props.toggleText) {
+        return <div onClick={props.event} className='base-input-toggle'>
+            { props.toggleText }
+        </div>
+    }
+    return null;
 }
 
 export default BaseInput;

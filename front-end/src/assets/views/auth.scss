@@ -19,14 +19,10 @@
                     flex-direction: column;
                     .auth-input {
                         color: $mainLight;
-                        border-bottom: 1px solid $mainBorder;
                         border-radius: 0px;
-                        margin: 10px 0;
+                        margin: 5px 0;
                         padding: 10px 0px;
                         width: 100%;
-                        &:focus {
-                            border-color: $mainLight;
-                        }
                     }
                 }
                 .form-btn {

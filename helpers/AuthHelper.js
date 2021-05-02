@@ -1,4 +1,8 @@
-class FormController {
+const jwt = require('jsonwebtoken');
+const logger = require('../config/logger');
+const moment = require('moment');
+
+class AuthHelper {
     regex = {
         email: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
     }
@@ -88,6 +92,49 @@ class FormController {
         const bcrypt = require('bcrypt');
         return bcrypt.compareSync(password, user.password);
     }
+
+    getAuthToken(user) {
+        const secretKey = process.env.SECRET_KEY || null;
+        const oldRefreshToken = user.refreshToken;
+
+        user.password = undefined;
+        user.createdAt = undefined;
+        user.updatedAt = undefined;
+        user.refreshToken = undefined;
+
+        if (!secretKey) {
+            logger.error('No secret key found');
+            return false;
+        }
+        const accessToken = this.getTokenString(user, secretKey, '8 days');
+        const refreshToken = this.getRefreshToken(user, secretKey, oldRefreshToken);
+
+        return { accessToken, refreshToken };
+    }
+
+    getTokenString(user, secretKey, expiresIn) {
+        try {
+            return jwt.sign(
+                { user },
+                secretKey,
+                {expiresIn}
+            );
+        } catch (Ex) { return null }
+    }
+
+    getRefreshToken(user, secretKey, refreshToken) {
+        let createToken = false;
+        try {
+            const verify = jwt.verify(refreshToken, secretKey);
+            const expiryStamp = moment((verify.exp || 0) * 1000);
+            createToken = moment().isAfter(expiryStamp);
+        } catch (Ex) { createToken = true }
+        if (createToken) {
+            refreshToken = this.getTokenString(user, secretKey, '30 days');
+            user.update({ refreshToken });
+        }
+        return refreshToken;
+    }
 }
 
-module.exports = FormController;
+module.exports = AuthHelper;

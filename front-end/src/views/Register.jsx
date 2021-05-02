@@ -1,57 +1,36 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from '../config/axios';
+import axios from '../helpers/axios';
 import BaseInput from '../components/common/BaseInput';
-import FormValidator from '../assets/js/formValidator';
+import BaseHelper from '../components/common/BaseHelper';
 
-class Register extends React.Component {
+class Register extends BaseHelper {
+
     state = {
         formParams: {
-            name: 'Gaurav Singh',
-            email: 'gau94rav@gmail.com',
-            password: 'Channu@123',
-            confirmPassword: 'Channu@123',
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
         },
         validated: false,
         liveValidate: false,
         errors: {},
-    }
-
-    handleInputs = (event) => {
-        const formParams = this.state.formParams;
-        formParams[event.target.name] = event.target.value;
-
-        if (this.state.liveValidate) this.validate();        
-        this.setState({
-            formParams,
-        })
+        showPassword: false,
+        authPage: false,
     }
 
     register = async () => {
-        await this.validate();
-
+        await this.validate('register');
         if (this.state.validated) {
             const data = this.state.formParams;
             axios.post('auth/register', data)
-                .then(response => console.log(response))
+                .then(response => this.handleAuthResponse(response))
                 .catch(error => console.log(error))
         }
     }
 
-    validate = () => {
-        const formData = this.state.formParams;
-        const errors = FormValidator.validateRegisterForm(formData);
-        const validated = Object.keys(errors).length === 0;
-
-        this.setState({
-            validated,
-            liveValidate: true,
-            errors,
-        })
-    }
-
     render() {
-        const { errors, formParams } = this.state;
+        const { errors, formParams, showPassword } = this.state;
         const {
             name,
             email,
@@ -99,8 +78,10 @@ class Register extends React.Component {
                                     value={password}
                                     onInputChange={this.handleInputs}
                                     onEnterPressed={this.register}
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     error={errors.password}
+                                    eventTriggered={this.passwordTypeSwitch}
+                                    toggleText={showPassword ? 'HIDE' : 'SHOW'}
                                 />
                                 <BaseInput
                                     className='base-input auth-input'
@@ -109,7 +90,7 @@ class Register extends React.Component {
                                     value={confirmPassword}
                                     onInputChange={this.handleInputs}
                                     onEnterPressed={this.register}
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     error={errors.confirmPassword}
                                 />
                             </div>

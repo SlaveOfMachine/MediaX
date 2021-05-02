@@ -1,7 +1,7 @@
 const User = require('../models').User;
-const FormController = require('./FormController');
+const AuthHelper = require('../helpers/AuthHelper');
 
-class AuthController extends FormController {
+class AuthController extends AuthHelper {
 
     constructor() {
         super();
@@ -25,10 +25,16 @@ class AuthController extends FormController {
                     queryResponse = this.handleQueryError(errorResponse);
                 }).then(row => {
                     queryResponse = this.checkInsertSuccess(row);
+                    if (queryResponse.status === 200) {
+                        const tokens = this.getAuthToken(row);
+                        console.log(tokens);
+                        queryResponse.token = tokens.accessToken;
+                        queryResponse.refreshToken = tokens.refreshToken;
+                    }
                 });
             }
         }
-        return response.status(queryResponse.status).json({message: queryResponse.message});
+        return response.status(queryResponse.status).json(queryResponse);
     }
 
     async login(request, response) {
@@ -48,8 +54,22 @@ class AuthController extends FormController {
                     queryResponse = this.authenticate(row, password);
                 })
         }
-        logger.info(queryResponse);
-        return response.status(queryResponse.status).json({message: queryResponse.message});
+        return response
+            .status(queryResponse.status)
+            .json({
+                message: queryResponse.message,
+                token: queryResponse.token || null,
+                refresh_token: queryResponse.refreshToken
+            });
+    }
+
+    async logout(request, response) {
+        response
+            .status(200)
+            .json({
+                success: true,
+                message: 'Authorized to logout'
+            });
     }
 
     authenticate(user, password) {
@@ -59,8 +79,11 @@ class AuthController extends FormController {
             if (!valid) {
                 response.message = 'Failed to login';
             } else {
+                const tokens = this.getAuthToken(user);
                 response.status = 200;
                 response.message = 'User authenticated';
+                response.token = tokens.accessToken;
+                response.refreshToken = tokens.refreshToken;
             }
         }
         return response;

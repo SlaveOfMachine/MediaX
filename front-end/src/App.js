@@ -1,5 +1,5 @@
 import PagesRenderer from './render/PagesRenderer';
-import './assets/index.scss';
+import './assets/styles/index.scss';
 import { Loader, AxiosMessage } from './components/common/BaseLayoutFeatures';
 require('dotenv').config();
 

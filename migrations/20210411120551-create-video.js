@@ -14,13 +14,16 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
+      type: {
+        type: Sequelize.ENUM('uploaded', 'recorded', 'slide')
+      },
       description: {
         type: Sequelize.STRING
       },
       duration: {
         type: Sequelize.INTEGER
       },
-      projectId: {
+      collectionId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

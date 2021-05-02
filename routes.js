@@ -16,6 +16,12 @@ router.get('/ping', (req, res) => res.send({message: 'Api for Mediax'}));
 }
 /* Auth Routes */
 
+/* Analytics Routes */
+{
+    router.get('/analytics', auth, (req, res) => Controllers.Analytics.index(req, res));
+}
+/* Analytics Routes */
+
 function auth(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     

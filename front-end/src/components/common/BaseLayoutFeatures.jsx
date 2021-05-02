@@ -61,8 +61,17 @@ function MenuIcon() {
     )
 }
 
+function PageNotFound() {
+    return (
+        <div className='page-not-found base-card'>
+            404 Not Found
+        </div>
+    )       
+}
+
 export {
     Navbar,
     Loader,
     AxiosMessage,
+    PageNotFound,
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
+    Route,
 } from "react-router-dom";
 import Pages from './Pages';
 import { PublicRoute, PrivateRoute } from '../helpers/middleware';
@@ -19,6 +20,7 @@ class PagesRenderer extends React.Component {
                         <PublicRoute path={Routes.login.path} exact component={Pages.Login} />
                         <PublicRoute path={Routes.register.path} exact component={Pages.Register} />
                         <PrivateRoute path={Routes.dashboard.path} exact component={Pages.Dashboard} />
+                        <Route component={Pages.PageNotFound}/>
                     </Switch>
                 </Router>
             </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import axios from '../config/axios';
+import axios from '../helpers/axios';
 import BaseInput from '../components/common/BaseInput';
 import BaseHelper from '../components/common/BaseHelper';
 

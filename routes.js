@@ -10,7 +10,7 @@ router.get('/ping', (req, res) => res.send({message: 'Api for Mediax'}));
 
 /* Auth Routes */
 {
-    router.post('/auth/register', auth, (req, res) => Controllers.Auth.register(req, res));
+    router.post('/auth/register', (req, res) => Controllers.Auth.register(req, res));
     router.post('/auth/login', (req, res) => Controllers.Auth.login(req, res));
 }
 /* Auth Routes */

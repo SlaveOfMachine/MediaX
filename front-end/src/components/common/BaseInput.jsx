@@ -39,22 +39,24 @@ class BaseInput extends React.Component {
 
         return (
             <div style={{position: 'relative'}}>
-                <input
-                    className={`${className} ${ error ? 'fail-border' : '' }`}
-                    placeholder={placeholder}
-                    name={name}
-                    type={showPassword ? 'text' : type}
-                    value={value}
-                    onChange={this.handleChange}
-                    onKeyPress={this.checkEnterPressed}
-                />
+                <div className="input-container" style={{position: 'relative'}}>
+                    <input
+                        className={`${className} ${ error ? 'fail-border' : '' }`}
+                        placeholder={placeholder}
+                        name={name}
+                        type={showPassword ? 'text' : type}
+                        value={value}
+                        onChange={this.handleChange}
+                        onKeyPress={this.checkEnterPressed}
+                    />
+                    <ShowToggle
+                        event={this.iconEvent}
+                        toggleText={toggleText}
+                    />
+                </div>
                 <div className="error-message">
                     { error }
                 </div>
-                <ShowToggle
-                    event={this.iconEvent}
-                    toggleText={toggleText}
-                 />
             </div>
         )
     }

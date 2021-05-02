@@ -9,13 +9,12 @@ class Dashboard extends BaseHelper {
     }
 
     componentDidMount() {
-        localStorage.removeItem('accessToken');
     }
 
     render() {
         return (
             <div>
-                Dashboard
+                { localStorage.getItem('accessToken') }
             </div>
         )
     }

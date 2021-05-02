@@ -2,10 +2,10 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    useLocation  
 } from "react-router-dom";
 import Pages from './Pages';
+
+import { PublicRoute, PrivateRoute } from '../helpers/middleware';
 
 class PagesRenderer extends React.Component {
 
@@ -14,14 +14,12 @@ class PagesRenderer extends React.Component {
             login: { path: '/', auth: false },
             register: { path: '/register', auth: false },
             dashboard: { path: '/dashboard', auth: true },
+            test: { path: 'test/:id', auth: true },
         },
     }
 
-
     componentDidMount() {
-        // console.log(this.props);
-        console.log(<Main />, 'as');
-        
+        console.log(window.location.pathname);
     }
 
     render() {
@@ -30,20 +28,14 @@ class PagesRenderer extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route path={routes.login.path} exact component={Pages.Login} />
-                    <Route path={routes.register.path} exact component={Pages.Register} />
-                    <Route path={routes.dashboard.path} exact component={Pages.Dashboard} />
+                    <PublicRoute path={routes.login.path} exact component={Pages.Login} />
+                    <PublicRoute path={routes.register.path} exact component={Pages.Register} />
+                    <PrivateRoute path={routes.dashboard.path} exact component={Pages.Dashboard} />
                 </Switch>
             </Router>
         )
     }
 }
-
-const Main = ({ children }) => {
-    const location = useLocation();
-    return location.pathname;
-};
-
 
 
 export default PagesRenderer;

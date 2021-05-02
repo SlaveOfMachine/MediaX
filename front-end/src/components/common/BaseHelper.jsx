@@ -1,6 +1,5 @@
 import React from 'react';
 import FormValidator from '../../assets/js/formValidator';
-import { withRouter } from 'react-router'
 
 class BaseHelper extends React.Component {
 
@@ -35,13 +34,16 @@ class BaseHelper extends React.Component {
     }
 
     validateForms(form, formData) {
-        let errors = {};
+        let errors = null;
         switch (form) {
             case 'login':
                 errors = FormValidator.validateLoginForm(formData)
             break;
             case 'register':
                 errors = FormValidator.validateRegisterForm(formData)
+            break;
+            default:
+                errors = {};
             break;
         }
         return errors;

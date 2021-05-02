@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import BaseInput from '../components/common/BaseInput';
 import BaseHelper from '../components/common/BaseHelper';
-import axios from '../config/axios';
+import axios from '../helpers/axios';
 
 class Login extends BaseHelper {
     state = {

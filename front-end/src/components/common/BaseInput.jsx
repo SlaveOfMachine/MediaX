@@ -39,7 +39,7 @@ class BaseInput extends React.Component {
 
         return (
             <div style={{position: 'relative'}}>
-                <div className="input-container" style={{position: 'relative'}}>
+                <div className="base-input-container" style={{position: 'relative'}}>
                     <input
                         className={`${className} ${ error ? 'fail-border' : '' }`}
                         placeholder={placeholder}

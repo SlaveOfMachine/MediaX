@@ -24,7 +24,7 @@ class Register extends BaseHelper {
         if (this.state.validated) {
             const data = this.state.formParams;
             axios.post('auth/register', data)
-                .then(response => console.log(response))
+                .then(response => this.handleAuthResponse(response))
                 .catch(error => console.log(error))
         }
     }

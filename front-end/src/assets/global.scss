@@ -9,28 +9,52 @@ body {
         bottom: 0;
         top: 0;
         margin: auto;
-        height: 100%;
         width: 100%;
         .page-view {
-            position: relative;
             height: 100%;
-            width: 100%;
         }
     }
+
     a {
         text-decoration: none;
     }
-    .base-input {
-        background: transparent;
-        padding: 10px;
-        border-radius: 2px;
-        border: none;
-        outline: none;
+
+    .base-input-container {
+        display: flex;
+        border-bottom: 1px solid $mainBorder;
         transition: 0.3s;
-        box-shadow: none;
-        &:focus {
-            outline: none !important;
+        &:hover {
+            border-color: $mainLight;
         }
+        .base-input {
+            background: transparent;
+            padding: 10px;
+            border-radius: 2px;
+            border: none;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: none;            
+            &:focus {
+                outline: none !important;
+            }
+        }
+        .base-input-toggle {
+            height: max-content;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            position: relative;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            margin-left: 5px;
+        }
+    }
+    
+    .base-link {
+        text-decoration: none;
+        color: $mainLight;
     }
     
     .base-button {
@@ -42,17 +66,11 @@ body {
         transition: 0.3s;
     }
 
-    .base-input-toggle {
-        position: absolute;
-        right: 1em;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        height: max-content;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 1.5px;
-        cursor: pointer;
+    .base-card {
+        background: $mainCard;
+        color: $mainLight;
+        padding: 15px;
+        border-radius: 2px;
     }
     
     .axios-loader-container {
@@ -108,6 +126,7 @@ body {
         transition: 0.3s;
         animation-iteration-count: 1;
         display: none;
+        z-index: 50;
     }
 
     @keyframes slide-bottom {
@@ -129,6 +148,26 @@ body {
     }
     
     .fail-border { border-color: $mainRed !important; }
+
+    .base-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        height: 65px;
+        border-bottom: 1px solid $mainBorder;
+        background: $mainBlue;
+        color: $mainLight;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+    }
+
+    .smooth-shadow {
+        box-shadow:
+            0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    }
 
     @keyframes spin{
         0%{

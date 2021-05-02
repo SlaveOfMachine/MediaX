@@ -57,7 +57,7 @@ class BaseHelper extends React.Component {
             return this.setState({ errors });
         }
         localStorage.setItem('accessToken', token);
-        this.props.history.push('/dashboard');
+        window.location.reload();
     }
 }
 

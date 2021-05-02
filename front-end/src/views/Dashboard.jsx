@@ -9,12 +9,15 @@ class Dashboard extends BaseHelper {
     }
 
     componentDidMount() {
+        // localStorage.removeItem('accessToken');
     }
 
     render() {
         return (
-            <div>
-                { localStorage.getItem('accessToken') }
+            <div className='dasboard-container'>
+                <div className="base-card smooth-shadow">
+                    You are logged in!
+                </div>
             </div>
         )
     }

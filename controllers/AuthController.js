@@ -25,10 +25,16 @@ class AuthController extends AuthHelper {
                     queryResponse = this.handleQueryError(errorResponse);
                 }).then(row => {
                     queryResponse = this.checkInsertSuccess(row);
+                    if (queryResponse.status === 200) {
+                        const tokens = this.getAuthToken(row);
+                        console.log(tokens);
+                        queryResponse.token = tokens.accessToken;
+                        queryResponse.refreshToken = tokens.refreshToken;
+                    }
                 });
             }
         }
-        return response.status(queryResponse.status).json({message: queryResponse.message});
+        return response.status(queryResponse.status).json(queryResponse);
     }
 
     async login(request, response) {
@@ -54,6 +60,15 @@ class AuthController extends AuthHelper {
                 message: queryResponse.message,
                 token: queryResponse.token || null,
                 refresh_token: queryResponse.refreshToken
+            });
+    }
+
+    async logout(request, response) {
+        response
+            .status(200)
+            .json({
+                success: true,
+                message: 'Authorized to logout'
             });
     }
 

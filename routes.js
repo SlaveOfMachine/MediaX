@@ -46,7 +46,6 @@ function verifyToken(token) {
         logger.error('Secret key not found');
         return false;
     }
-    console.log(jwt.verify(token, secretKey));
     return jwt.verify(token, secretKey);
 }
 

@@ -166,7 +166,8 @@ body {
         position: sticky;
         top: 0;
         z-index: 10;
-        height: 65px;
+        min-height: 20px;
+        height: max-content;
         border-bottom: 1px solid $mainBorder;
         background: $mainBlue;
         color: $mainLight;
@@ -180,11 +181,19 @@ body {
             align-items: center;
         }
         .nav-menu {
-            a {
-                margin: 0 10px;
+            a,
+            span {
+                padding: 20px 10px;
+                height: 100%;
+                display: inline-block;
+                transition: 0.3s;
+                border-radius: 3px;
+                &:hover {
+                    background: $transparentCover;
+                }
             }
-            button {
-                font-size: 16px;
+            .logout-button {
+                margin-left: 5rem;
             }
         }
     }
@@ -244,7 +253,6 @@ body {
         .mobile-element { display: block; }
         .base-navbar {
             flex-direction: column;
-            height: max-content;
             .nav-brand-icons {
                 width: 100%
             }
@@ -253,10 +261,13 @@ body {
                 flex-direction: column !important;
                 width: 100%;
                 a,
-                button {
-                    margin: 10px 0;
+                span {
                     text-align: left;
-                    padding: 0px;
+                    font-size: 14px;
+                    padding: 10px;
+                }
+                .logout-button {
+                    margin-left: 0px;
                 }
             }
         }

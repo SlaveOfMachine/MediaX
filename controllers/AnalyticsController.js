@@ -1,7 +1,8 @@
 
 class AnalyticsController {
+
     index(request, response) {
-        response.status(200);
+        return response.status(200).json({message: 'as'});
     }
 }
 

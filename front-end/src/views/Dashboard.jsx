@@ -13,12 +13,17 @@ class Dashboard extends BaseHelper {
         recordedAudios: 0,
     }
     componentDidMount() {
-        // axios.get('analytics')
-        //     .then(response => {
-        //         console.log(response);
-        //     })
-        //     .catch(error => console.log(error))
+        this.getAnalytics();
     }
+
+    getAnalytics() {
+        axios.get('analytics')
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => console.log(error))
+    }
+
     render() {
         return (
             <div className='dashboard-container'>

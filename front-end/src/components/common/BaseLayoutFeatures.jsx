@@ -20,7 +20,7 @@ function Navbar() {
                 <Link to='/collections' className='base-link'>COLLECTIONS</Link>
                 <Link to='/settings' className='base-link'>SETTINGS</Link>
                 <Link to='/channel' className='base-link'>CHANNEL</Link>
-                <button className='base-link' onClick={logout}>LOGOUT</button>
+                <span className='base-link logout-button' onClick={logout}>LOGOUT</span>
             </div>
         </div>
     )

@@ -27,13 +27,13 @@ class AuthController extends AuthHelper {
                     queryResponse = this.checkInsertSuccess(row);
                     if (queryResponse.status === 200) {
                         const tokens = this.getAuthToken(row);
-                        console.log(tokens);
                         queryResponse.token = tokens.accessToken;
                         queryResponse.refreshToken = tokens.refreshToken;
                     }
                 });
             }
         }
+        
         return response.status(queryResponse.status).json(queryResponse);
     }
 

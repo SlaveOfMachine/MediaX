@@ -17,7 +17,9 @@ function Navbar() {
             </div>
             <div className={`nav-menu ${expanded ? '' : 'desktop-element'}`}>
                 <Link to='/dashboard' className='base-link'>DASHBOARD</Link>
+                <Link to='/collections' className='base-link'>COLLECTIONS</Link>
                 <Link to='/settings' className='base-link'>SETTINGS</Link>
+                <Link to='/channel' className='base-link'>CHANNEL</Link>
                 <button className='base-link' onClick={logout}>LOGOUT</button>
             </div>
         </div>
@@ -69,9 +71,18 @@ function PageNotFound() {
     )       
 }
 
+function BaseCard(props) {
+    const { title, count } = props;
+    return <div className='base-card base-card-component'>
+        <div className="base-card-title">{ title }</div>
+        <div className="base-card-count">{ count }</div>
+    </div>
+}
+
 export {
     Navbar,
     Loader,
     AxiosMessage,
     PageNotFound,
+    BaseCard,
 }

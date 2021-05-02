@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     duration: DataTypes.INTEGER,
-    projectId: DataTypes.INTEGER
+    collectionId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Video',

@@ -64,7 +64,10 @@ class AuthHelper {
     checkInsertSuccess(row) {
         const inserted = row && row.id;
         const response = {};
+
         if (inserted) {
+            console.log(row, 'ss');
+
             this.encryptPassword(row);
             response.status = 200;
             response.message = 'User Registered';
@@ -75,15 +78,16 @@ class AuthHelper {
         return response;
     }
 
-    async encryptPassword(user) {
+    encryptPassword(user) {
         const bcrypt = require('bcrypt');
         const saltRounds = 10;
+        const password = user.password;
 
         bcrypt.genSalt(saltRounds, function(err, salt) {
             if (err) logger.error(err);
-            bcrypt.hash(user.password, salt, function(err, password) {
+            bcrypt.hash(password, salt, function(err, password) {
                 if (err) logger.error(err);
-                user.update({ password })
+                return user.update({ password })
             });
         });
     }

@@ -1,0 +1,23 @@
+.dashboard-container {
+    padding: 15px 50px;
+    .upper-section {
+        padding: 50px;
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: 33.3% 33.3% 33.4%;
+            .base-card {
+                margin: 15px;
+            }
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .dashboard-container {
+        .upper-section {
+            .dashboard-cards {
+                grid-template-columns: auto;
+            }
+        }
+    }
+}

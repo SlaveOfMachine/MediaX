@@ -73,6 +73,7 @@ function PageNotFound() {
 
 function BaseCard(props) {
     const { title, count } = props;
+    // console.log(props);
     return <div className='base-card base-card-component'>
         <div className="base-card-title">{ title }</div>
         <div className="base-card-count">{ count }</div>

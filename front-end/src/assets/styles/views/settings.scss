@@ -1,0 +1,69 @@
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    position: relative;
+    align-self: center;
+    justify-self: center;
+    padding: 100px 0;
+    .settings-content {
+        width: 70%;
+        height: max-content;
+        border-radius: 1px;  
+        .settings-body {
+            transition: 0.3s;
+            display: flex;
+            .settings-sidebar {
+                .settings-sidebar-item {
+                    height: 64px;
+                    min-width: 150px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid $mainBorder;
+                    background: $mainSection;
+                    font-size: 14px;
+                }
+                .sidebar-item-inactive {
+                    background: $mainDark;
+                    cursor: pointer;
+                }
+            }
+            .settings-section {
+                border: 1px solid $mainBorder;
+                width: 100%;
+                height: max-content;
+                background: $mainSection;
+                min-height: 500px;
+                .setting-section-title {
+                    text-align: center;
+                    padding: 15px 0;
+                }
+                .section-content {
+                    .sub-section {
+                        padding: 15px 40px;
+                        .sub-section-title {
+                            font-weight: bolder;
+                            padding: 10px 0;
+                        }
+                        .section-inputs {
+                            display: grid;
+                            grid-template-columns: 48% 48%;
+                            grid-gap: 20px;
+                        }
+                    }
+                    .section-buttons {
+                        padding: 25px;
+                        display: flex;
+                        .base-button {
+                            margin: 0 15px;
+                            width: 100px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

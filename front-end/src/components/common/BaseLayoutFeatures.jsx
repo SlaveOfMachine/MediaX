@@ -1,27 +1,35 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import defaultUser from '../../assets/icons/defaultUser.svg';
 
 function Navbar() {
     const [expanded, toggle] = useState(false);
+    const [popup, togglePopup] = useState(false);
 
     return (
-        <div className='base-navbar smooth-shadow'>
-            <div className='nav-brand-icons'>
-                <div className="nav-brand">
-                    { process.env.REACT_APP_NAME || 'App' }
+        <div onMouseLeave={() => togglePopup(false)}>
+            <div className='base-navbar smooth-shadow'>
+                <div className='nav-brand-icons'>
+                    <div className="nav-brand">
+                        { process.env.REACT_APP_NAME || 'App' }
+                    </div>
+                    <div onClick={() => toggle(!expanded)}>
+                        <MenuIcon />
+                    </div>
                 </div>
-                <div onClick={() => toggle(!expanded)}>
-                    <MenuIcon />
+                <div className={`nav-menu ${expanded ? '' : 'desktop-element'}`}>
+                    <Link to='/dashboard' className='base-link'>DASHBOARD</Link>
+                    <Link to='/collections' className='base-link'>COLLECTIONS</Link>
+                    <Link to='/settings' className='base-link'>SETTINGS</Link>
+                    <Link to='/channel' className='base-link'>CHANNEL</Link>
+                    <span className='base-link logout-button mobile-element' onClick={logout}>LOGOUT</span>
+                    <span className='desktop-element control-panel' onClick={() => togglePopup(!popup)}>
+                        <img src={defaultUser} alt="profile"/>
+                    </span>
                 </div>
             </div>
-            <div className={`nav-menu ${expanded ? '' : 'desktop-element'}`}>
-                <Link to='/dashboard' className='base-link'>DASHBOARD</Link>
-                <Link to='/collections' className='base-link'>COLLECTIONS</Link>
-                <Link to='/settings' className='base-link'>SETTINGS</Link>
-                <Link to='/channel' className='base-link'>CHANNEL</Link>
-                <span className='base-link logout-button' onClick={logout}>LOGOUT</span>
-            </div>
+            <BaseNavPopup toggle={popup} logout={logout} />
         </div>
     )
 }
@@ -73,11 +81,30 @@ function PageNotFound() {
 
 function BaseCard(props) {
     const { title, count } = props;
-    // console.log(props);
-    return <div className='base-card base-card-component'>
-        <div className="base-card-title">{ title }</div>
-        <div className="base-card-count">{ count }</div>
-    </div>
+    return (
+        <div className='base-card base-card-component'>
+            <div className="base-card-title">{ title }</div>
+            <div className="base-card-count">{ count }</div>
+        </div>
+    )
+}
+
+function BaseNavPopup(props) {
+    return (
+        <div className={`popup-container smooth-shadow ${props.toggle ? '' : 'd-none'}`}>
+            <div className='nav-popup-menu'>
+                <div className='nav-popup-menu-item' onClick={() => props.logout()}>Logout</div>
+            </div>
+        </div>
+    )
+}
+
+function BaseButton(props) {
+    return (
+        <div className="base-button-container">
+            <button onClick={props.clicked} className={`base-button ${props.type || 'dark'}`}>{props.title}</button>
+        </div>
+    )
 }
 
 export {
@@ -86,4 +113,5 @@ export {
     AxiosMessage,
     PageNotFound,
     BaseCard,
+    BaseButton,
 }

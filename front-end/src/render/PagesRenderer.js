@@ -20,6 +20,8 @@ class PagesRenderer extends React.Component {
                         <PublicRoute path={Routes.login.path} exact component={Pages.Login} />
                         <PublicRoute path={Routes.register.path} exact component={Pages.Register} />
                         <PrivateRoute path={Routes.dashboard.path} exact component={Pages.Dashboard} />
+                        <PrivateRoute path={Routes.collections.path} exact component={Pages.Collections} />
+                        <PrivateRoute path={Routes.collections.settings} exact component={Pages.Settings} />
                         <Route component={Pages.PageNotFound}/>
                     </Switch>
                 </Router>

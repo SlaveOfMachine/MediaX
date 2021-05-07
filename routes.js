@@ -22,6 +22,12 @@ router.get('/ping', (req, res) => res.send({message: 'Api for Mediax'}));
 }
 /* Analytics Routes */
 
+/* Settings Routes */
+{
+    router.get('/settings/user', auth, (req, res) => Controllers.Settings.show(req, res));
+}
+/* Settings Routes */
+
 async function auth(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     

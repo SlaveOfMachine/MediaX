@@ -8,8 +8,8 @@ function Navbar() {
     const [popup, togglePopup] = useState(false);
 
     return (
-        <div onMouseLeave={() => togglePopup(false)}>
-            <div className='base-navbar smooth-shadow'>
+        <div className='base-navbar-container' onMouseLeave={() => togglePopup(false)}>
+            <div className='base-navbar smooth-shadow dark'>
                 <div className='nav-brand-icons'>
                     <div className="nav-brand">
                         { process.env.REACT_APP_NAME || 'App' }
@@ -19,11 +19,11 @@ function Navbar() {
                     </div>
                 </div>
                 <div className={`nav-menu ${expanded ? '' : 'desktop-element'}`}>
-                    <Link to='/dashboard' className='base-link'>DASHBOARD</Link>
-                    <Link to='/collections' className='base-link'>COLLECTIONS</Link>
-                    <Link to='/settings' className='base-link'>SETTINGS</Link>
-                    <Link to='/channel' className='base-link'>CHANNEL</Link>
-                    <span className='base-link logout-button mobile-element' onClick={logout}>LOGOUT</span>
+                    <Link to='/dashboard' className='nav-link'>DASHBOARD</Link>
+                    <Link to='/collections' className='nav-link'>COLLECTIONS</Link>
+                    <Link to='/settings' className='nav-link'>SETTINGS</Link>
+                    <Link to='/channel' className='nav-link'>CHANNEL</Link>
+                    <span className='nav-link mobile-element' onClick={logout}>LOGOUT</span>
                     <span className='desktop-element control-panel' onClick={() => togglePopup(!popup)}>
                         <img src={defaultUser} alt="profile"/>
                     </span>

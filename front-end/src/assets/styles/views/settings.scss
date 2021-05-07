@@ -22,20 +22,24 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border: 1px solid $mainBorder;
-                    background: $mainSection;
+                    border: 1px solid $alternateBorder;
+                    background: $mainCard;
                     font-size: 14px;
                 }
                 .sidebar-item-inactive {
-                    background: $mainDark;
+                    background: $dark;
                     cursor: pointer;
+                    transition: 0.3s;
+                    &:hover {
+                        background: $mainCard;
+                    }
                 }
             }
             .settings-section {
-                border: 1px solid $mainBorder;
+                border: 1px solid $alternateBorder;
                 width: 100%;
                 height: max-content;
-                background: $mainSection;
+                background: $dark;
                 min-height: 500px;
                 .setting-section-title {
                     text-align: center;
@@ -60,6 +64,36 @@
                         .base-button {
                             margin: 0 15px;
                             width: 100px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .settings-container {
+        .settings-content {
+            width: 90%;
+            .settings-body {
+                flex-direction: column;
+                width: 100%;
+                .settings-sidebar {
+                    display: flex;
+                    justify-content: space-between;
+                    .settings-sidebar-item {
+                        width: 100%;
+                    }
+                }
+                .settings-section {
+                    width: auto;
+                    .section-content {
+                        .sub-section {
+                            .section-inputs {
+                                display: flex;
+                                flex-direction: column;
+                            }
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 body {
     background: $mainDark;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "FiraSans-Regular";
     color: $mainLight;
     .App {
         position: absolute;
@@ -21,6 +21,10 @@ body {
 
     .d-none {
         display: none !important;
+    }
+
+    .text-center {
+        text-align: center;
     }
 
     .base-input-container {
@@ -86,6 +90,11 @@ body {
         color: $mainLight;
         padding: 15px;
         border-radius: 2px;
+        transition: 0.3s;
+        &:hover {
+            background: $primary;
+            cursor: pointer;
+        }
     }
     
     .base-card-component {
@@ -174,38 +183,47 @@ body {
     
     .fail-border { border-color: $mainRed !important; }
 
-    .base-navbar {
+    .base-navbar-container {
         position: sticky;
         top: 0;
         z-index: 10;
-        min-height: 20px;
-        height: max-content;
-        border-bottom: 1px solid $mainBorder;
-        background: $mainBlue;
-        color: $mainLight;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 19px;
-        .nav-brand-icons {
+        .base-navbar {
+            margin: auto;
+            min-height: 20px;
+            height: max-content;
+            color: $mainLight;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            a,
-            span {
-                padding: 0px 10px;
-                transition: 0.3s;
-                border-radius: 3px;
+            padding: 19px;
+            .nav-brand-icons {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .nav-brand {
+                    color: $primary;
+                    font-family: "FiraSans-Medium";
+                    font-size: 24px;
+                }
             }
-            img {
-                cursor: pointer;
-            }
-            .logout-button {
-                margin-left: 5rem;
+            .nav-menu {
+                display: flex;
+                align-items: center;
+                .nav-link {
+                    padding: 15px;
+                    color: $mainLight;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+                img {
+                    cursor: pointer;
+                }
+                .logout-button {
+                    margin-left: 5rem;
+                }
             }
         }
     }
@@ -215,16 +233,17 @@ body {
         padding: 15px 30px;
         border-radius: 3px;
         float: right;
-        background: $mainBlue;
-        border-bottom: 1px solid $mainBorder;
-        border-left: 1px solid $mainBorder;
-        border-right: 1px solid $mainBorder;
+        background: $mainCard;
         position: absolute;
         right: 0;
         z-index: 50;
         .nav-popup-menu {
             .nav-popup-menu-item {
                 cursor: pointer;
+                transition: 0.3s;
+                &:hover {
+                    color: $primary;
+                }
             }
         }
     }

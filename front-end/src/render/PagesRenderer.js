@@ -10,7 +10,6 @@ import { Navbar } from '../components/common/BaseLayoutFeatures';
 import Routes from '../assets/js/routes';
 
 class PagesRenderer extends React.Component {
-
     render() {
         return (
             <div className='page-view'>
@@ -20,6 +19,8 @@ class PagesRenderer extends React.Component {
                         <PublicRoute path={Routes.login.path} exact component={Pages.Login} />
                         <PublicRoute path={Routes.register.path} exact component={Pages.Register} />
                         <PrivateRoute path={Routes.dashboard.path} exact component={Pages.Dashboard} />
+                        <PrivateRoute path={Routes.collections.path} exact component={Pages.Collections} />
+                        <PrivateRoute path={Routes.settings.path} exact component={Pages.Settings} />
                         <Route component={Pages.PageNotFound}/>
                     </Switch>
                 </Router>

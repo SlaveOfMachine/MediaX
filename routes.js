@@ -1,5 +1,5 @@
 const express = require('express');
-const { response } = express;
+const User = require('./models').User;
 const Controllers = require('./config/controllerProvider');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -22,17 +22,28 @@ router.get('/ping', (req, res) => res.send({message: 'Api for Mediax'}));
 }
 /* Analytics Routes */
 
-function auth(req, res, next) {
+/* Settings Routes */
+{
+    router.get('/settings/user', auth, (req, res) => Controllers.Settings.show(req, res));
+}
+/* Settings Routes */
+
+async function auth(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     
     if (typeof bearerHeader !== 'undefined') {
         const token = bearerHeader.split(' ')[1];
         req.token = token;
-        const user = verifyToken(token);
-        if (!user) {
+        const tokenData = verifyToken(token);
+        if (!tokenData) {
             res.status(401).json({message: 'Failed To Authenticate'});
         } else {
-            req.user = user;
+            const requestUser = tokenData.user;
+            if (requestUser) {
+                req.user = requestUser;
+            } else {
+                logger.error('Failed to find user from token');
+            }
             next();
         }
     } else {
@@ -46,7 +57,6 @@ function verifyToken(token) {
         logger.error('Secret key not found');
         return false;
     }
-    console.log(jwt.verify(token, secretKey));
     return jwt.verify(token, secretKey);
 }
 

@@ -1,9 +1,54 @@
-$mainDark: #263238;
+$mainDark: #131215;
 $mainLight: #FAFAFA;
 $mainRed: #ff6e40;
-$mainCard: #455a64;
+$mainCard: #292A2C;
 $mainBorder: #a6a7a7;
 $mainBlue: #01579b;
+$mainSection: #37474f;
 
+$alternateBorder: #182023;
 $transparentCover: rgba(0, 0, 0, 0.603);
 
+$primary: #3C59F0;
+$success: #69f0ae;
+$danger: #ff3d00;
+$info: #b3e5fc;
+$warning: #b37137;
+$dark: #151419;
+
+
+// Color Classes
+.primary {
+    background: $primary !important;
+    color: $mainLight;
+}
+
+.success {
+    background: $success !important;
+    color: $mainLight;
+}
+
+.info {
+    background: $info !important;
+    color: $mainLight;
+}
+
+.danger {
+    background: $danger !important;
+    color: $mainLight;
+}
+
+.warning {
+    background: $warning !important;
+    color: $mainLight;
+}
+
+.dark {
+    background: $dark !important;
+    color: $mainLight;
+}
+
+.light {
+    background: #f7f7f7;
+    color: $mainDark;
+}

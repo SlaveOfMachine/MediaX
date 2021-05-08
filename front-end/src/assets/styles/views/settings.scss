@@ -1,0 +1,103 @@
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    position: relative;
+    align-self: center;
+    justify-self: center;
+    padding: 100px 0;
+    .settings-content {
+        width: 70%;
+        height: max-content;
+        border-radius: 1px;  
+        .settings-body {
+            transition: 0.3s;
+            display: flex;
+            .settings-sidebar {
+                .settings-sidebar-item {
+                    height: 64px;
+                    min-width: 150px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid $alternateBorder;
+                    background: $mainCard;
+                    font-size: 14px;
+                }
+                .sidebar-item-inactive {
+                    background: $dark;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    &:hover {
+                        background: $mainCard;
+                    }
+                }
+            }
+            .settings-section {
+                border: 1px solid $alternateBorder;
+                width: 100%;
+                height: max-content;
+                background: $dark;
+                min-height: 500px;
+                .setting-section-title {
+                    text-align: center;
+                    padding: 15px 0;
+                }
+                .section-content {
+                    .sub-section {
+                        padding: 15px 40px;
+                        .sub-section-title {
+                            font-weight: bolder;
+                            padding: 10px 0;
+                        }
+                        .section-inputs {
+                            display: grid;
+                            grid-template-columns: 48% 48%;
+                            grid-gap: 20px;
+                        }
+                    }
+                    .section-buttons {
+                        padding: 25px;
+                        display: flex;
+                        .base-button {
+                            margin: 0 15px;
+                            width: 100px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .settings-container {
+        .settings-content {
+            width: 90%;
+            .settings-body {
+                flex-direction: column;
+                width: 100%;
+                .settings-sidebar {
+                    display: flex;
+                    justify-content: space-between;
+                    .settings-sidebar-item {
+                        width: 100%;
+                    }
+                }
+                .settings-section {
+                    width: auto;
+                    .section-content {
+                        .sub-section {
+                            .section-inputs {
+                                display: flex;
+                                flex-direction: column;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

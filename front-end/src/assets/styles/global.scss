@@ -1,6 +1,6 @@
 body {
     background: $mainDark;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "FiraSans-Regular";
     color: $mainLight;
     .App {
         position: absolute;
@@ -19,6 +19,14 @@ body {
         text-decoration: none;
     }
 
+    .d-none {
+        display: none !important;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
     .base-input-container {
         display: flex;
         border-bottom: 1px solid $mainBorder;
@@ -33,7 +41,12 @@ body {
             border: none;
             outline: none;
             transition: 0.3s;
-            box-shadow: none;            
+            box-shadow: none;
+            border-radius: 0px;
+            margin: 5px 0;
+            padding: 10px 0px;
+            width: 100%;
+            color: $mainLight;
             &:focus {
                 outline: none !important;
             }
@@ -67,6 +80,9 @@ body {
         border: none;
         cursor: pointer;
         transition: 0.3s;
+        &:hover {
+            opacity: 0.8;
+        }
     }
 
     .base-card {
@@ -74,6 +90,11 @@ body {
         color: $mainLight;
         padding: 15px;
         border-radius: 2px;
+        transition: 0.3s;
+        &:hover {
+            background: $primary;
+            cursor: pointer;
+        }
     }
     
     .base-card-component {
@@ -162,29 +183,67 @@ body {
     
     .fail-border { border-color: $mainRed !important; }
 
-    .base-navbar {
+    .base-navbar-container {
         position: sticky;
         top: 0;
         z-index: 10;
-        height: 65px;
-        border-bottom: 1px solid $mainBorder;
-        background: $mainBlue;
-        color: $mainLight;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 15px;
-        .nav-brand-icons {
+        .base-navbar {
+            margin: auto;
+            min-height: 20px;
+            height: max-content;
+            color: $mainLight;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .nav-menu {
-            a {
-                margin: 0 10px;
+            padding: 19px;
+            .nav-brand-icons {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .nav-brand {
+                    color: $primary;
+                    font-family: "FiraSans-Medium";
+                    font-size: 24px;
+                }
             }
-            button {
-                font-size: 16px;
+            .nav-menu {
+                display: flex;
+                align-items: center;
+                .nav-link {
+                    padding: 15px;
+                    color: $mainLight;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+                img {
+                    cursor: pointer;
+                }
+                .logout-button {
+                    margin-left: 5rem;
+                }
+            }
+        }
+    }
+
+    .popup-container {
+        width: max-content;
+        padding: 15px 30px;
+        border-radius: 3px;
+        float: right;
+        background: $mainCard;
+        position: absolute;
+        right: 0;
+        z-index: 50;
+        .nav-popup-menu {
+            .nav-popup-menu-item {
+                cursor: pointer;
+                transition: 0.3s;
+                &:hover {
+                    color: $primary;
+                }
             }
         }
     }
@@ -244,19 +303,24 @@ body {
         .mobile-element { display: block; }
         .base-navbar {
             flex-direction: column;
-            height: max-content;
             .nav-brand-icons {
                 width: 100%
+            }
+            .control-panel {
+                height: 100%;
             }
             .nav-menu {
                 display: flex;
                 flex-direction: column !important;
                 width: 100%;
                 a,
-                button {
-                    margin: 10px 0;
+                span {
                     text-align: left;
-                    padding: 0px;
+                    font-size: 14px;
+                    padding: 10px;
+                }
+                .logout-button {
+                    margin-left: 0px;
                 }
             }
         }

@@ -21,7 +21,9 @@ class BaseInput extends React.Component {
     }
 
     iconEvent = (e) => {
-        this.props.eventTriggered(e);
+        if (this.props.eventTriggered) {
+            this.props.eventTriggered(e);
+        }
     }
 
     render() {
@@ -33,21 +35,27 @@ class BaseInput extends React.Component {
             value,
             error,
             toggleText,
+            label,
+            id,
+            disabled,
         } = this.props;
 
         const { showPassword } = this.state;
 
         return (
             <div style={{position: 'relative'}}>
+                <label htmlFor={id}>{ label }</label>
                 <div className="base-input-container" style={{position: 'relative'}}>
                     <input
-                        className={`${className} ${ error ? 'fail-border' : '' }`}
+                        className={`${className || 'base-input'} ${ error ? 'fail-border' : '' }`}
                         placeholder={placeholder}
                         name={name}
+                        id={id}
                         type={showPassword ? 'text' : type}
                         value={value}
                         onChange={this.handleChange}
                         onKeyPress={this.checkEnterPressed}
+                        disabled={disabled}
                     />
                     <ShowToggle
                         event={this.iconEvent}

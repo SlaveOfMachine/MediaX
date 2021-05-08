@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const logger = require('./config/logger');
 
 // Routes
-router.get('/ping', (req, res) => res.send({message: 'Api for Mediax'}));
+router.get('/ping', () => Controllers.Mailer.welcomeEmail());
 
 /* Auth Routes */
 {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #131215;
+            color: #FAFAFA;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .template-container {
+            text-align: center;
+        }
+
+        .logo {
+            color: #3C59F0;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: #b37137;
+        }
+
+    </style>
+    <title>{{APP_NAME}}</title>
+</head>
+<body>
+    <div class="template-container">
+        <div class="logo">{{APP_NAME}}</div>
+        <h4>Hello {{USER_NAME}},</h4>
+        <p>Welcome to {{APP_NAME}}</p>
+        <p>Please Click <a href='{{VERIFICATION_URL}}'>here</a> to activate your account.</p>
+        <small>If link fails to work, copy the code below and paste in browser url.</small>
+        <br>
+        <br>
+        <small>{{VERIFICATION_URL}}</small>
+    </div>
+</body>
+</html>

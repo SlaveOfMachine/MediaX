@@ -1,6 +1,6 @@
 const User = require('../models').User;
 const AuthHelper = require('../helpers/AuthHelper');
-
+const Mailer = require('../controllers/MailController');
 class AuthController extends AuthHelper {
 
     constructor() {
@@ -29,6 +29,7 @@ class AuthController extends AuthHelper {
                         const tokens = this.getAuthToken(row);
                         queryResponse.token = tokens.accessToken;
                         queryResponse.refreshToken = tokens.refreshToken;
+                        Mailer.welcomeEmail(row);
                     }
                 });
             }

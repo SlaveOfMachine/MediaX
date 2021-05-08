@@ -66,8 +66,6 @@ class AuthHelper {
         const response = {};
 
         if (inserted) {
-            console.log(row, 'ss');
-
             this.encryptPassword(row);
             response.status = 200;
             response.message = 'User Registered';

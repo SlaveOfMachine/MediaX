@@ -11,13 +11,16 @@
   "author": "Gaurav",
   "license": "ISC",
   "dependencies": {
+    "@supercharge/strings": "^1.18.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.6.0",
     "sequelize": "^6.6.2"
   },
   "devDependencies": {

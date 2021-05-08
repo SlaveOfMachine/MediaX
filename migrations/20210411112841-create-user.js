@@ -25,6 +25,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      emailVerified: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+      },
       refreshToken: {
         type: Sequelize.STRING,
         allowNull: true,

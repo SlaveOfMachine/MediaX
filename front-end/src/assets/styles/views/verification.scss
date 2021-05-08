@@ -1,0 +1,24 @@
+.verification-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    .verification-content {
+        background: $mainCard;
+        border-radius: 5px;
+        gap: 10px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        height: max-content;
+        width: max-content;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+}

@@ -209,13 +209,14 @@ body {
             .nav-menu {
                 display: flex;
                 align-items: center;
-                .nav-link {
-                    padding: 15px;
-                    color: $mainLight;
-                    cursor: pointer;
-                    transition: 0.3s;
-                    &:hover {
-                        color: $primary;
+                .nav-links {
+                    .nav-link {
+                        padding: 15px;
+                        color: $mainLight;
+                        transition: 0.3s;
+                        &:hover {
+                            color: $primary;
+                        }
                     }
                 }
                 img {
@@ -296,7 +297,9 @@ body {
         }
     }
 
-
+    .highlighted-text {
+        color: $primary;
+    }
     .mobile-element { display: none; }
     @media (max-width: 960px) {
         .desktop-element { display: none !important; }
@@ -313,14 +316,16 @@ body {
                 display: flex;
                 flex-direction: column !important;
                 width: 100%;
+                .nav-links {
+                    display: flex;
+                    flex-direction: column;
+                }
                 a,
                 span {
                     text-align: left;
                     font-size: 14px;
                     padding: 10px;
-                }
-                .logout-button {
-                    margin-left: 0px;
+                    cursor: pointer !important;
                 }
             }
         }

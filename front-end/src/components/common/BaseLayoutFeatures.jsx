@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import defaultUser from '../../assets/icons/defaultUser.svg';
 
-function Navbar() {
+function Navbar(props) {
     const [expanded, toggle] = useState(false);
     const [popup, togglePopup] = useState(false);
 
@@ -19,11 +19,7 @@ function Navbar() {
                     </div>
                 </div>
                 <div className={`nav-menu ${expanded ? '' : 'desktop-element'}`}>
-                    <Link to='/dashboard' className='nav-link'>DASHBOARD</Link>
-                    <Link to='/collections' className='nav-link'>COLLECTIONS</Link>
-                    <Link to='/settings' className='nav-link'>SETTINGS</Link>
-                    <Link to='/channel' className='nav-link'>CHANNEL</Link>
-                    <span className='nav-link mobile-element' onClick={logout}>LOGOUT</span>
+                    <NavLinks verified={props.verifiedUser} />
                     <span className='desktop-element control-panel' onClick={() => togglePopup(!popup)}>
                         <img src={defaultUser} alt="profile"/>
                     </span>
@@ -32,6 +28,21 @@ function Navbar() {
             <BaseNavPopup toggle={popup} logout={logout} />
         </div>
     )
+}
+
+function NavLinks(props) {
+    if (props.verified) {
+        return (
+            <span className='nav-links'>
+                <Link to='/dashboard' className='nav-link'>DASHBOARD</Link>
+                <Link to='/collections' className='nav-link'>COLLECTIONS</Link>
+                <Link to='/settings' className='nav-link'>SETTINGS</Link>
+                <Link to='/channel' className='nav-link'>CHANNEL</Link>
+                <span className='nav-link mobile-element' onClick={logout}>LOGOUT</span>
+            </span>
+        )
+    }
+    return <span className='nav-link mobile-element' onClick={logout}>LOGOUT</span>
 }
 
 function Loader() {

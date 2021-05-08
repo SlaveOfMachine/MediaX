@@ -31,7 +31,9 @@ class PagesRenderer extends React.Component {
 
 function AuthNavbar() {
     const token = localStorage.getItem('accessToken');
-    return token ? <Navbar /> : '';
+    const user  = JSON.parse(localStorage.getItem('user'));
+
+    return token ? <Navbar verifiedUser={user.emailVerified}/> : '';
 }
 
 

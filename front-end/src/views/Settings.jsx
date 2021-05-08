@@ -77,7 +77,7 @@ function SettingsSidebar(props) {
         items.push(
             <div
                 key={item.section}
-                className={`settings-sidebar-item sidebar-item-${active === item.section ? 'active' : 'inactive'}`}
+                className={`settings-sidebar-item smooth-shadow sidebar-item-${active === item.section ? 'active' : 'inactive'}`}
                 onClick={() => props.switchSection(item)}
             >
                 <div className="sidebar-item-text">
@@ -87,7 +87,7 @@ function SettingsSidebar(props) {
         );
     }
     return (
-        <div className='settings-sidebar smooth-shadow'>
+        <div className='settings-sidebar'>
             {items}
         </div>
     )

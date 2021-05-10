@@ -66,7 +66,7 @@ function logout() {
         .then(response => {
             if (response.data.success) {
                 localStorage.removeItem('accessToken');
-                window.location.reload();
+                window.location.replace('/');
             }
         })
         .catch(error => console.log(error));

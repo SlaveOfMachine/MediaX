@@ -1,4 +1,4 @@
-$mainDark: #131215;
+$mainBackgroundColor: #131215;
 $mainLight: #FAFAFA;
 $mainRed: #ff6e40;
 $mainCard: #292A2C;
@@ -7,6 +7,7 @@ $mainBlue: #01579b;
 $mainSection: #37474f;
 
 $alternateBorder: #182023;
+$alternateSection: #ebebeb;
 $transparentCover: rgba(0, 0, 0, 0.603);
 
 $primary: #3C59F0;
@@ -15,7 +16,6 @@ $danger: #ff3d00;
 $info: #b3e5fc;
 $warning: #b37137;
 $dark: #151419;
-
 
 // Color Classes
 .primary {
@@ -50,5 +50,5 @@ $dark: #151419;
 
 .light {
     background: #f7f7f7;
-    color: $mainDark;
+    color: $mainBackgroundColor;
 }

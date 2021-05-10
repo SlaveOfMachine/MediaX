@@ -51,6 +51,11 @@ axios.interceptors.response.use((response) => {
 }, (error) => {
     toggleLoader(true);
     toggleMessage(error);
+    const authError = error.response.status === 401;
+    if (authError) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+    }
     return Promise.reject(error);
 });
 

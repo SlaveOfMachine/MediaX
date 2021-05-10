@@ -64,7 +64,11 @@ function verifyToken(token) {
         logger.error('Secret key not found');
         return false;
     }
-    return jwt.verify(token, secretKey);
+    try {
+        return jwt.verify(token, secretKey);
+    } catch (error) {
+        logger.error(error);
+    }
 }
 
 module.exports = router;

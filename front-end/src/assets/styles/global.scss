@@ -1,5 +1,5 @@
 body {
-    background: $mainDark;
+    background: $mainBackgroundColor;
     font-family: "FiraSans-Regular";
     color: $mainLight;
     .App {
@@ -32,7 +32,7 @@ body {
         border-bottom: 1px solid $mainBorder;
         transition: 0.3s;
         &:hover {
-            border-color: $mainLight;
+            border-color: $mainBorder;
         }
         .base-input {
             background: transparent;
@@ -49,6 +49,10 @@ body {
             color: $mainLight;
             &:focus {
                 outline: none !important;
+                background: none !important;
+            }
+            &:active {
+                background: none !important;
             }
         }
         .base-input-toggle {
@@ -141,7 +145,7 @@ body {
             margin: auto;
             border-radius: 100%;
             border: 10px solid transparent;
-            border-top-color: $mainDark;
+            border-top-color: $mainBackgroundColor;
           }
         
         .axios-loader:before{
@@ -151,18 +155,18 @@ body {
         }
         
         .axios-loader:after{
-            border: 10px solid $mainLight;
+            border: 10px solid $mainBorder;
         }
     }
 
     .axios-message-container {
-        background: $mainLight;
+        background: $alternateSection;
         position: fixed;
         top: 20px;
         left: 0;
         right: 0;
         margin: auto;
-        color: $mainDark;
+        color: $mainBackgroundColor;
         width: max-content;
         padding: 10px 25px;
         border-radius: 5px;
@@ -332,3 +336,16 @@ body {
     }
 }
 
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+ -webkit-box-shadow: 0 0 0 30px $mainCard inset !important;
+}
+
+input:-webkit-autofill
+{
+ -webkit-text-fill-color: $mainLight !important;
+}

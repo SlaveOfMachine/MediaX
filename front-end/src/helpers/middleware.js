@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     const token = localStorage.getItem('accessToken');
     const user  = JSON.parse(localStorage.getItem('user'));
 
-    if (token && !user.emailVerified) {
+    if (token && user && !user.emailVerified) {
       return <VerificationPending />;
     }
     return token ? (
@@ -39,7 +39,7 @@ const VerificationRoute = ({ props, component: Component, ...rest }) => {
     const token = localStorage.getItem('accessToken');
     const tokenObject = token ? jwt_decode(token) : {};
     const user = tokenObject.user || {};
-    const isVerified = user.emailVerified;
+    const isVerified = user && user.emailVerified;
     if (token) {
       return isVerified ? (
         props.history.push("/dashboard")

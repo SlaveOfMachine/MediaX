@@ -19,7 +19,8 @@ class AnalyticsController {
 
     getCount(data) {
         const collections = data.collections;
-        const videos = collections.map(c => c.videos.length).reduce((a, b) => a + b);
+        let videos = collections.map(c => c.videos.length);
+        videos = videos.length ? videos.reduce((a, b) => a + b) : 0;
         const audios = 0;
         const slides = 0;
         return {

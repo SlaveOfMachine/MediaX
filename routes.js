@@ -13,6 +13,7 @@ router.get('/ping', () => Controllers.Mailer.welcomeEmail());
     router.post('/auth/register', (req, res) => Controllers.Auth.register(req, res));
     router.post('/auth/login', (req, res) => Controllers.Auth.login(req, res));
     router.post('/auth/logout', (req, res) => Controllers.Auth.logout(req, res));
+    router.get('/auth/verify-email/:userId/:hash', (req, res) => Controllers.Auth.verifyEmail(req, res));
 }
 /* Auth Routes */
 
@@ -27,6 +28,12 @@ router.get('/ping', () => Controllers.Mailer.welcomeEmail());
     router.get('/settings/user', auth, (req, res) => Controllers.Settings.show(req, res));
 }
 /* Settings Routes */
+
+/* Mailer Routes */
+{
+    router.post('/mailer', auth, (req, res) => Controllers.Mailer.sendEmail(req, res));
+}
+/* Mailer Routes */
 
 async function auth(req, res, next) {
     const bearerHeader = req.headers['authorization'];

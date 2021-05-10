@@ -5,7 +5,7 @@ import {
     Route,
 } from "react-router-dom";
 import Pages from './Pages';
-import { PublicRoute, PrivateRoute } from '../helpers/middleware';
+import { PublicRoute, PrivateRoute, VerificationRoute } from '../helpers/middleware';
 import { Navbar } from '../components/common/BaseLayoutFeatures';
 import Routes from '../assets/js/routes';
 
@@ -21,6 +21,7 @@ class PagesRenderer extends React.Component {
                         <PrivateRoute path={Routes.dashboard.path} exact component={Pages.Dashboard} />
                         <PrivateRoute path={Routes.collections.path} exact component={Pages.Collections} />
                         <PrivateRoute path={Routes.settings.path} exact component={Pages.Settings} />
+                        <VerificationRoute path={Routes.emailVerify.path} exact render={props => <Pages.VerificationProcess {...props} />} component={Pages.VerificationProcess} />
                         <Route component={Pages.PageNotFound}/>
                     </Switch>
                 </Router>

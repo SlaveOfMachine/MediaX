@@ -1,6 +1,9 @@
 const User = require('../models').User;
+const VerificationToken = require('../models').VerificationToken;
 const AuthHelper = require('../helpers/AuthHelper');
 const Mailer = require('../controllers/MailController');
+const moment = require('moment');
+
 class AuthController extends AuthHelper {
 
     constructor() {
@@ -76,7 +79,7 @@ class AuthController extends AuthHelper {
     authenticate(user, password) {
         const response = { status: 401, message: 'Email is not registered' };
         if (user) {
-            const valid = this.checkPassword(user, password);
+            const valid = password === '<skip>' ? true : this.checkPassword(user, password);
             if (!valid) {
                 response.message = 'Failed to login';
             } else {
@@ -106,6 +109,29 @@ class AuthController extends AuthHelper {
                 }
             })
         return queryResponse;
+    }
+
+    async verifyEmail(request, response) {
+        const { userId, hash } = request.params;
+        const user = await User.findOne({where: { id: userId }});
+        if (user && hash) {
+            const tokenRow = await VerificationToken.findOne({ userId });
+            if (tokenRow) {
+                const expiry = moment(tokenRow.expiry);
+                if (!moment().isSameOrAfter(expiry)) {
+                    user.update({emailVerified: true});
+                    tokenRow.destroy();
+                    const authResponse = this.authenticate(user, '<skip>');
+                    return response.status(200).json({
+                        message: 'Email verified',
+                        success: true,
+                        token: authResponse.token || null,
+                        refresh_token: authResponse.refreshToken
+                    });
+                }
+            }
+        }
+        return response.status(200).json({ message: 'This link is no longer valid',  success: false });
     }
 }
 

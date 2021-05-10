@@ -4,6 +4,7 @@ const routes = {
     dashboard: { path: '/dashboard', auth: true },
     collections: { path: '/collections', auth: true },
     settings: { path: '/settings', auth: true },
+    emailVerify: { path: '/emailVerify/:hash', auth: false }
 }
 
 export default routes;

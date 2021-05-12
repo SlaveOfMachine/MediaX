@@ -1,7 +1,8 @@
 import React from 'react';
-import BaseInput from '../components/common/BaseInput';
-import { BaseButton } from '../components/common/BaseLayoutFeatures';
 import axios from '../helpers/axios';
+import BaseInput from '../components/common/BaseInput';
+import BaseConfirmModal from '../components/common/BaseConfirmModal';
+import { BaseButton } from '../components/common/BaseLayoutFeatures';
 
 const SIDEBAR_MENU = [
     { section: 'profile', label: 'PROFILE' },
@@ -12,6 +13,7 @@ class Settings extends React.Component {
     state = {
         active: SIDEBAR_MENU[0],
         user: {},
+        showEmailChangeModal: false,
     }
 
     componentDidMount() {
@@ -45,6 +47,11 @@ class Settings extends React.Component {
         this.setState({ user });
     }
 
+    emailChangeModal = () => {
+        const showEmailChangeModal = !this.state.showEmailChangeModal;
+        this.setState({ showEmailChangeModal });
+    }
+
     saveSettings = () => {
         console.log('save');
     }
@@ -55,13 +62,7 @@ class Settings extends React.Component {
                 <div className="settings-content">
                     <div className="settings-body">
                         <SettingsSidebar active={this.state.active} switchSection={this.switchSection}/>
-                        <SettingsSection
-                            active={this.state.active}
-                            user={this.state.user}
-                            handleInputChange={this.handleInputChange}
-                            handleResetClick={this.getProfileData}
-                            handleSaveClick={this.saveSettings}
-                        />
+                        <SettingsSection instance={this} />
                     </div>
                     <div className="settings-foot"></div>
                 </div>
@@ -94,8 +95,8 @@ function SettingsSidebar(props) {
 }
 
 function SettingsSection(props) {
-    const active = props.active;
-    const section = getSection(props);
+    const active = props.instance.state.active;
+    const section = getSection(props, active);
     return (
         <div className="settings-section smooth-shadow">
             <div className="setting-section-title">{ active.label }</div>
@@ -104,17 +105,12 @@ function SettingsSection(props) {
     )
 }
 
-function getSection(props) {
-    const active = props.active;
+function getSection(props, active) {
+    const user = props.instance.state.user;
     switch (active.section) {
         case 'profile':
-            const section = <ProfileSection
-                user={props.user}
-                handleInputChange={props.handleInputChange}
-                handleResetClick={props.handleResetClick}
-                handleSaveClick={props.handleSaveClick}
-            />;
-            return (Object.keys(props.user).length) ? section : '';
+            const section = <ProfileSection instance={props.instance} user={user} />;
+            return (Object.keys(user).length) ? section : '';
         case 'subscription':
             return <SubscriptionSection />
         
@@ -127,6 +123,7 @@ function getSection(props) {
 }
 
 function ProfileSection(props) {
+    const user = props.user;
     return (
         <div className='section-content'>
             <div className="sub-section">
@@ -136,18 +133,19 @@ function ProfileSection(props) {
                         placeholder='Enter Name'
                         label='Name'
                         id='name'
-                        value={props.user.name}
-                        onInputChange={props.handleInputChange}
+                        value={user.name}
+                        onInputChange={props.instance.handleInputChange}
                         name='name'
                     />
                     <BaseInput
                         placeholder='Enter Email'
                         label='Email'
                         id='email'
-                        value={props.user.email}
+                        value={user.email}
                         toggleText='CHANGE'
+                        eventTriggered={props.instance.emailChangeModal}
                         disabled={true}
-                        onInputChange={props.handleInputChange}
+                        onInputChange={props.instance.handleInputChange}
                         name='email'
                     />
                 </div>
@@ -159,23 +157,26 @@ function ProfileSection(props) {
                         placeholder='Enter Password'
                         label='Password'
                         id='password'
-                        value={props.user.password}
-                        onInputChange={props.handleInputChange}
+                        value={user.password}
+                        onInputChange={props.instance.handleInputChange}
                         name='password'
                     />
                     <BaseInput
                         placeholder='Confirm Old Password'
                         label='Confirm Password'
                         id='confirm_password'
-                        value={props.user.confirm_password}
-                        onInputChange={props.handleInputChange}
+                        value={user.confirm_password}
+                        onInputChange={props.instance.handleInputChange}
                         name='confirm_password'
                     />
                 </div>
             </div>
             <div className="section-buttons">
-                <BaseButton title='Save' type='primary' clicked={props.handleSaveClick} />
-                <BaseButton title='Reset' type='warning' clicked={props.handleResetClick}  />
+                <BaseButton title='Save' type='primary' clicked={props.instance.saveSettings} />
+                <BaseButton title='Reset' type='warning' clicked={props.instance.getProfileData}  />
+            </div>
+            <div className="modals">
+                { props.instance.state.showEmailChangeModal ? <BaseConfirmModal /> : ''}
             </div>
         </div>
     )

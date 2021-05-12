@@ -102,7 +102,7 @@ function BaseCard(props) {
 
 function BaseNavPopup(props) {
     return (
-        <div className={`popup-container smooth-shadow ${props.toggle ? '' : 'd-none'}`}>
+        <div className={`base-popup-container smooth-shadow ${props.toggle ? '' : 'd-none'}`}>
             <div className='nav-popup-menu'>
                 <div className='nav-popup-menu-item' onClick={() => props.logout()}>Logout</div>
             </div>

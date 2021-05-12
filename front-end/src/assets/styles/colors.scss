@@ -1,4 +1,4 @@
-$mainBackgroundColor: #131215;
+$mainDark: #131215;
 $mainLight: #FAFAFA;
 $mainRed: #ff6e40;
 $mainCard: #292A2C;
@@ -12,7 +12,7 @@ $transparentCover: rgba(0, 0, 0, 0.603);
 
 $primary: #3C59F0;
 $success: #69f0ae;
-$danger: #ff3d00;
+$danger: #a0310f;
 $info: #b3e5fc;
 $warning: #b37137;
 $dark: #151419;
@@ -30,7 +30,7 @@ $dark: #151419;
 
 .info {
     background: $info !important;
-    color: $mainLight;
+    color: $mainDark
 }
 
 .danger {
@@ -50,5 +50,5 @@ $dark: #151419;
 
 .light {
     background: #f7f7f7;
-    color: $mainBackgroundColor;
+    color: $mainDark;
 }

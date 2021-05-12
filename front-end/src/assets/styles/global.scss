@@ -1,5 +1,5 @@
 body {
-    background: $mainBackgroundColor;
+    background: $mainDark;
     font-family: "FiraSans-Regular";
     color: $mainLight;
     .App {
@@ -27,101 +27,6 @@ body {
         text-align: center;
     }
 
-    .base-input-container {
-        display: flex;
-        border-bottom: 1px solid $mainBorder;
-        transition: 0.3s;
-        &:hover {
-            border-color: $mainBorder;
-        }
-        .base-input {
-            background: transparent;
-            padding: 10px;
-            border-radius: 2px;
-            border: none;
-            outline: none;
-            transition: 0.3s;
-            box-shadow: none;
-            border-radius: 0px;
-            margin: 5px 0;
-            padding: 10px 0px;
-            width: 100%;
-            color: $mainLight;
-            &:focus {
-                outline: none !important;
-                background: none !important;
-            }
-            &:active {
-                background: none !important;
-            }
-        }
-        .base-input-toggle {
-            height: max-content;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            position: relative;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            margin-left: 5px;
-        }
-    }
-    
-    .base-link {
-        text-decoration: none;
-        color: $mainLight;
-        border: none;
-        background: none;
-        cursor: pointer;
-    }
-    
-    .base-button {
-        background: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-        &:hover {
-            opacity: 0.8;
-        }
-    }
-
-    .base-card {
-        background: $mainCard;
-        color: $mainLight;
-        padding: 15px;
-        border-radius: 2px;
-        transition: 0.3s;
-        &:hover {
-            background: $primary;
-            cursor: pointer;
-        }
-    }
-    
-    .base-card-component {
-        height: 150px;
-        position: relative;
-        display: flex;
-        .base-card-title {
-            align-self: flex-end;
-            font-size: 18px;
-        }
-        .base-card-count {
-            text-align: center;
-            font-size: 50px;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: max-content;
-            margin: auto;
-        }
-    }
-
     .axios-loader-container {
         position: fixed;
         width: 100%;
@@ -145,7 +50,7 @@ body {
             margin: auto;
             border-radius: 100%;
             border: 10px solid transparent;
-            border-top-color: $mainBackgroundColor;
+            border-top-color: $mainDark;
           }
         
         .axios-loader:before{
@@ -166,7 +71,7 @@ body {
         left: 0;
         right: 0;
         margin: auto;
-        color: $mainBackgroundColor;
+        color: $mainDark;
         width: max-content;
         padding: 10px 25px;
         border-radius: 5px;
@@ -187,70 +92,8 @@ body {
     
     .fail-border { border-color: $mainRed !important; }
 
-    .base-navbar-container {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        .base-navbar {
-            margin: auto;
-            min-height: 20px;
-            height: max-content;
-            color: $mainLight;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 19px;
-            .nav-brand-icons {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                .nav-brand {
-                    color: $primary;
-                    font-family: "FiraSans-Medium";
-                    font-size: 24px;
-                }
-            }
-            .nav-menu {
-                display: flex;
-                align-items: center;
-                .nav-links {
-                    .nav-link {
-                        padding: 15px;
-                        color: $mainLight;
-                        transition: 0.3s;
-                        &:hover {
-                            color: $primary;
-                        }
-                    }
-                }
-                img {
-                    cursor: pointer;
-                }
-                .logout-button {
-                    margin-left: 5rem;
-                }
-            }
-        }
-    }
-
-    .popup-container {
-        width: max-content;
-        padding: 15px 30px;
-        border-radius: 3px;
-        float: right;
-        background: $mainCard;
-        position: absolute;
-        right: 0;
-        z-index: 50;
-        .nav-popup-menu {
-            .nav-popup-menu-item {
-                cursor: pointer;
-                transition: 0.3s;
-                &:hover {
-                    color: $primary;
-                }
-            }
-        }
+    .cursor-pointer {
+        cursor: pointer;
     }
 
     .smooth-shadow {
@@ -301,6 +144,15 @@ body {
         }
     }
 
+    @keyframes popup {
+        from {
+            margin-bottom: -20px;
+        }
+        to {
+            margin-bottom: 0px;
+        }
+    }
+
     .highlighted-text {
         color: $primary;
     }
@@ -308,31 +160,6 @@ body {
     @media (max-width: 960px) {
         .desktop-element { display: none !important; }
         .mobile-element { display: block; }
-        .base-navbar {
-            flex-direction: column;
-            .nav-brand-icons {
-                width: 100%
-            }
-            .control-panel {
-                height: 100%;
-            }
-            .nav-menu {
-                display: flex;
-                flex-direction: column !important;
-                width: 100%;
-                .nav-links {
-                    display: flex;
-                    flex-direction: column;
-                }
-                a,
-                span {
-                    text-align: left;
-                    font-size: 14px;
-                    padding: 10px;
-                    cursor: pointer !important;
-                }
-            }
-        }
     }
 }
 
@@ -342,7 +169,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active
 {
- -webkit-box-shadow: 0 0 0 30px $mainCard inset !important;
+ -webkit-box-shadow: 0 0 0 30px transparent inset !important;
 }
 
 input:-webkit-autofill

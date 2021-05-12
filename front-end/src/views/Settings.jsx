@@ -176,7 +176,7 @@ function ProfileSection(props) {
                 <BaseButton title='Reset' type='warning' clicked={props.instance.getProfileData}  />
             </div>
             <div className="modals">
-                { props.instance.state.showEmailChangeModal ? <BaseConfirmModal /> : ''}
+                { props.instance.state.showEmailChangeModal ? <BaseConfirmModal close={props.instance.emailChangeModal} /> : ''}
             </div>
         </div>
     )

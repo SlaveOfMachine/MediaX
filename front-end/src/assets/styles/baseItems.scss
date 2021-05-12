@@ -174,10 +174,6 @@
         border-radius: 5px;
         background: $mainCard;
         width: 500px;
-        animation: popup;
-        animation-iteration-count: 1;
-        animation-duration: 0.3s;
-        transition: 0.3s;
         .base-modal-head {
             padding: 15px 0;
             display: flex;

@@ -67,18 +67,15 @@ body {
     .axios-message-container {
         background: $alternateSection;
         position: fixed;
-        top: 20px;
         left: 0;
         right: 0;
         margin: auto;
+        margin-top: 20px;
         color: $mainDark;
         width: max-content;
         padding: 10px 25px;
         border-radius: 5px;
-        animation-name: slide-bottom;
-        animation-duration: 0.3s;
         transition: 0.3s;
-        animation-iteration-count: 1;
         display: none;
         z-index: 50;
     }
@@ -115,42 +112,6 @@ body {
     .page-not-found {
         text-align: center;
         position: relative;
-    }
-
-    @keyframes spin{
-        0%{
-          -webkit-transform: rotate(0deg);
-          -ms-transform: rotate(0deg);
-          -o-transform: rotate(0deg);
-          transform: rotate(0deg);
-        }
-      
-        100%{
-          -webkit-transform: rotate(360deg);
-          -ms-transform: rotate(360deg);
-          -o-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-    }
-
-    @keyframes slide-bottom {
-        from {
-            opacity: 0;
-            top: 0px;
-        }
-        to {
-            opacity: 1;
-            top: 20px;
-        }
-    }
-
-    @keyframes popup {
-        from {
-            margin-bottom: -20px;
-        }
-        to {
-            margin-bottom: 0px;
-        }
     }
 
     .highlighted-text {

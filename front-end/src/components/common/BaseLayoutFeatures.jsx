@@ -55,7 +55,7 @@ function Loader() {
 
 function AxiosMessage() {
     return (
-        <div className='axios-message-container'>
+        <div className='axios-message-container slide-down'>
             <div className='axios-message'>Server error</div>
         </div>
     )

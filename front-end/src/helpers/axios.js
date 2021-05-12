@@ -47,6 +47,9 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use((response) => {
     toggleLoader(true);
+    if (response.data.message && response.data.showMessage) {
+        toggleMessage(response.data.message);
+    }
     return response;
 }, (error) => {
     toggleLoader(true);

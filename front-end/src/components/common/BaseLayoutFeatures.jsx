@@ -111,10 +111,21 @@ function BaseNavPopup(props) {
 }
 
 function BaseButton(props) {
+    const loading = props.loading;
     return (
         <div className="base-button-container">
-            <button onClick={props.clicked} className={`base-button ${props.type || 'dark'}`}>{props.title}</button>
+            <button
+                onClick={!loading ? props.clicked : null}
+                className={`base-button ${props.type || 'dark'}`}>
+                <span className='base-button-text'>{loading && <BaseSpinner />} { props.title || 'Title' }</span>
+            </button>
         </div>
+    )
+}
+
+function BaseSpinner() {
+    return (
+        <div className='spinner base-loading-spinner'></div>
     )
 }
 

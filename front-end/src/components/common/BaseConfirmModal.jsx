@@ -12,12 +12,18 @@ class BaseConfirmModal extends React.Component {
         }
         return this.props.close();
     }
+
+    handleConfirm = () => {
+        this.props.confirm();
+    }
+
     render() {
         const {
             title,
             description,
             confirmButtonText,
             cancelButtonText,
+            loading,
         } = this.props;
         return (
             <div className='base-modal-container'>
@@ -32,18 +38,23 @@ class BaseConfirmModal extends React.Component {
                     </div>
                     <div className="base-modal-body">
                         <div className="base-modal-body-content">
-                            { description || 'Modal Description' }
+                            <div className="base-modal-text">
+                                { description || 'Modal Description' }
+                            </div>
                         </div>
                     </div>
                     <div className="base-modal-foot">
                         <BaseButton
                             type='primary'
+                            clicked={this.handleConfirm}
                             title={ confirmButtonText || 'Confirm' }
+                            loading={ loading }
                         />
                         <BaseButton
                             type='warning'
                             clicked={this.handleClose}
                             title={ cancelButtonText || 'Cancel' }
+                            loading={ loading }
                         />
                     </div>
                 </div>

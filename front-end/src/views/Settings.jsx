@@ -14,6 +14,7 @@ class Settings extends React.Component {
         active: SIDEBAR_MENU[0],
         user: {},
         showEmailChangeModal: false,
+        loading: false,
     }
 
     componentDidMount() {
@@ -51,6 +52,24 @@ class Settings extends React.Component {
         const showEmailChangeModal = !this.state.showEmailChangeModal;
         this.setState({ showEmailChangeModal });
     }
+
+    sendEmailChangeMail = () => {
+        this.loader();
+        axios.post('mailer', { action: 'change-email' }, {headers: {noLoading: true}})
+            .then(response => {
+                this.loader(false);
+                this.emailChangeModal();
+                console.log(response);
+            })
+            .catch(error => {
+                this.loader(false);
+                console.log(error);
+                this.emailChangeModal();
+            });
+    }
+
+    loader = (loading = true) => this.setState({ loading });
+    
 
     saveSettings = () => {
         console.log('save');
@@ -176,7 +195,18 @@ function ProfileSection(props) {
                 <BaseButton title='Reset' type='warning' clicked={props.instance.getProfileData}  />
             </div>
             <div className="modals">
-                { props.instance.state.showEmailChangeModal ? <BaseConfirmModal close={props.instance.emailChangeModal} /> : ''}
+                {
+                    props.instance.state.showEmailChangeModal &&
+                    <BaseConfirmModal
+                        title='Change Email'
+                        description='You will get a email containing the link, please click on it to change your current email.'
+                        confirmButtonText='Send Email'
+                        cancelButtonText="Don't Send"
+                        close={props.instance.emailChangeModal}
+                        confirm={props.instance.sendEmailChangeMail}
+                        loading={props.instance.state.loading}
+                    /> 
+                }
             </div>
         </div>
     )

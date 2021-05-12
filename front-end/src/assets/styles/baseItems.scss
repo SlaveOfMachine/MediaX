@@ -55,6 +55,13 @@
     border: none;
     cursor: pointer;
     transition: 0.3s;
+    .base-button-text {
+        display: flex;
+        justify-content: center;
+        .base-loading-spinner {
+            margin: 1.5px 5px 0 5px;
+        }
+    }
     &:hover {
         opacity: 0.8;
     }
@@ -162,6 +169,7 @@
 .base-modal-container {
     position: fixed;
     background: $transparentCover;
+    backdrop-filter: blur(8px);
     top: 0;
     left: 0;
     width: 100%;
@@ -186,6 +194,9 @@
         .base-modal-body {
             .base-modal-body-content {
                 padding: 15px;
+                .base-modal-text {
+                    line-height: 30px;
+                }
             }
         }
         .base-modal-foot {
@@ -195,6 +206,14 @@
             justify-content: center;
         }
     }
+}
+
+.base-loading-spinner {
+    width: 10px;
+    height: 10px;
+    border: 1px solid $mainBorder;
+    border-radius: 10px;
+    border-top-color: $alternateBorder;
 }
 
 @media (max-width: 960px) {

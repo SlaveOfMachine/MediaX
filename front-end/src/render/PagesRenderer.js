@@ -4,8 +4,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import Pages from './Pages';
-import { PublicRoute, PrivateRoute, VerificationRoute } from '../helpers/middleware';
+import { PageNotFound } from '../components/common/BaseLayoutFeatures';
 import { Navbar } from '../components/common/BaseLayoutFeatures';
 import Routes from '../assets/js/routes';
 
@@ -16,13 +15,8 @@ class PagesRenderer extends React.Component {
                 <Router>
                     <AuthNavbar />
                     <Switch>
-                        <PublicRoute path={Routes.login.path} exact component={Pages.Login} />
-                        <PublicRoute path={Routes.register.path} exact component={Pages.Register} />
-                        <PrivateRoute path={Routes.dashboard.path} exact component={Pages.Dashboard} />
-                        <PrivateRoute path={Routes.collections.path} exact component={Pages.Collections} />
-                        <PrivateRoute path={Routes.settings.path} exact component={Pages.Settings} />
-                        <VerificationRoute path={Routes.emailVerify.path} exact render={props => <Pages.VerificationProcess {...props} />} component={Pages.VerificationProcess} />
-                        <Route component={Pages.PageNotFound}/>
+                        <ViewsRender routes={Routes} />
+                        <Route component={PageNotFound}/> 
                     </Switch>
                 </Router>
             </div>
@@ -34,6 +28,16 @@ function AuthNavbar() {
     const token = localStorage.getItem('accessToken');
     const user  = JSON.parse(localStorage.getItem('user'));
     return token && user ? <Navbar verifiedUser={user.emailVerified}/> : '';
+}
+
+function ViewsRender(props) {
+    const routes = props.routes || [];
+    return routes.map(route => {
+        return <route.type
+            path={route.path}
+            component={route.component}
+            exact />
+    })
 }
 
 

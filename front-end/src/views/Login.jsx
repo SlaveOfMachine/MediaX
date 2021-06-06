@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import BaseInput from '../components/common/BaseInput';
 import BaseHelper from '../components/common/BaseHelper';
-import axios from '../helpers/axios';
+import { connect } from 'react-redux';
+import { login } from '../store/index';
 
 class Login extends BaseHelper {
     state = {
@@ -14,15 +15,14 @@ class Login extends BaseHelper {
         errors: {},
         showPassword: false,
         authLevel: false,
+        isAuthorised: false,
     }
 
     login = async () => {
         await this.validate('login');
         if (this.state.validated) {
             const data = this.state.formParams;
-            axios.post('auth/login', data)
-                .then(response => this.handleAuthResponse(response))
-                .catch(error => console.log(error))
+            this.props.authenticate(data);
         }
     }
 
@@ -84,4 +84,10 @@ class Login extends BaseHelper {
     }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+    authenticate: (payload) => {
+        dispatch(login(payload));
+    }
+})
+
+export default connect(null, mapDispatchToProps)(Login);

@@ -12,8 +12,14 @@ class MailController extends MailHelper {
         const action = body.action;
         const user = await User.findOne({where: {id: request.user.id}});
 
-        let mailResponse = {status: 500, message: 'Failed to send email'};
+        let mailResponse = this.fireMail(action, user);
+        response
+            .status(mailResponse.status)
+            .json({...mailResponse});
+    }
 
+    fireMail(action, user = {}) {
+        let mailResponse = {status: 500, message: 'Failed to send email'};
         switch (action) {
             case 'welcome-mail':
                 mailResponse = this.emailConfirmMail({
@@ -22,7 +28,7 @@ class MailController extends MailHelper {
                     route: 'emailVerify',
                     template: 'welcome'
                 });
-                break;
+            break;
             case 'change-email':
                 mailResponse = this.emailConfirmMail({
                     user,
@@ -30,11 +36,9 @@ class MailController extends MailHelper {
                     route: 'emailChange',
                     template: 'emailChange'
                 });
-                break;
+            break;
         }
-        response
-            .status(mailResponse.status)
-            .json({...mailResponse});
+        return mailResponse;
     }
 
     emailConfirmMail(data) {

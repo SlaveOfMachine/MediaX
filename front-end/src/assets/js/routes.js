@@ -4,6 +4,7 @@ import {
     PrivateRoute,
     VerificationRoute
 } from '../../helpers/middleware';
+import { Route } from 'react-router';
 
 
 const routes = [
@@ -28,20 +29,20 @@ const routes = [
         type: PrivateRoute,
     },
     {
-        component: Pages.Collections,
-        path: '/collections',
-        type: PrivateRoute,
-    },
-    {
         component: Pages.Settings,
-        path: '/collections',
+        path: '/settings',
         type: PrivateRoute,
     },
     {
         component: Pages.VerificationProcess,
-        path: '/collections',
+        path: '/emailVerify/:hash',
         type: VerificationRoute,
     },
+    {
+        component: Pages.PageNotFound,
+        path: '/404',
+        type: Route,
+    }
 ]
 
 export default routes;

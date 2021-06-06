@@ -1,0 +1,55 @@
+.slide-up {
+    animation: slide-up;
+    animation-iteration-count: 1;
+    animation-duration: 0.3s;
+    transition: 0.3s;
+}
+
+.slide-down {
+    animation-name: slide-down;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+}
+
+.spinner {
+    animation: spin 1s infinite;
+    animation-delay: 0ms;
+    animation-timing-function: linear;
+}
+
+@keyframes slide-up {
+    from {
+        margin-bottom: -20px;
+        opacity: 0;
+    }
+    to {
+        margin-bottom: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes slide-down {
+    from {
+        margin-top: 0px;
+    }
+    to {
+        opacity: 1;
+        margin-top: 20px;
+    }
+}
+
+@keyframes spin {
+    0%{
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+  
+    100%{
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,253 @@
+.base-input-container {
+    display: flex;
+    border-bottom: 1px solid $mainBorder;
+    transition: 0.3s;
+    &:hover {
+        border-color: $mainBorder;
+    }
+    .base-input {
+        background: transparent;
+        padding: 10px;
+        border-radius: 2px;
+        border: none;
+        outline: none;
+        transition: 0.3s;
+        box-shadow: none;
+        border-radius: 0px;
+        margin: 5px 0;
+        padding: 10px 0px;
+        width: 100%;
+        color: $mainLight;
+        &:focus {
+            outline: none !important;
+            background: none !important;
+        }
+        &:active {
+            background: none !important;
+        }
+    }
+    .base-input-toggle {
+        height: max-content;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        position: relative;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        margin-left: 5px;
+    }
+}
+
+.base-link {
+    text-decoration: none;
+    color: $mainLight;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.base-button {
+    background: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    .base-button-text {
+        display: flex;
+        justify-content: center;
+        .base-loading-spinner {
+            margin: 1.5px 5px 0 5px;
+        }
+    }
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.base-card {
+    background: $mainCard;
+    color: $mainLight;
+    padding: 15px;
+    border-radius: 2px;
+    transition: 0.3s;
+    &:hover {
+        background: $primary;
+        cursor: pointer;
+    }
+}
+
+.base-card-component {
+    height: 150px;
+    position: relative;
+    display: flex;
+    .base-card-title {
+        align-self: flex-end;
+        font-size: 18px;
+    }
+    .base-card-count {
+        text-align: center;
+        font-size: 50px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: max-content;
+        margin: auto;
+    }
+}
+
+.base-navbar-container {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    .base-navbar {
+        margin: auto;
+        min-height: 20px;
+        height: max-content;
+        color: $mainLight;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 19px;
+        .nav-brand-icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .nav-brand {
+                color: $primary;
+                font-family: "FiraSans-Medium";
+                font-size: 24px;
+            }
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            .nav-links {
+                .nav-link {
+                    padding: 15px;
+                    color: $mainLight;
+                    transition: 0.3s;
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+            }
+            img {
+                cursor: pointer;
+            }
+            .logout-button {
+                margin-left: 5rem;
+            }
+        }
+    }
+}
+
+.base-popup-container {
+    width: max-content;
+    padding: 15px 30px;
+    border-radius: 3px;
+    float: right;
+    background: $mainCard;
+    position: absolute;
+    right: 0;
+    z-index: 50;
+    .nav-popup-menu {
+        .nav-popup-menu-item {
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+                color: $primary;
+            }
+        }
+    }
+}
+
+.base-modal-container {
+    position: fixed;
+    background: $transparentCover;
+    backdrop-filter: blur(8px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .base-modal-content {
+        border-radius: 5px;
+        background: $mainCard;
+        width: 500px;
+        .base-modal-head {
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            .base-modal-title,
+            .base-modal-close-btn {
+                padding: 0 15px;
+            }
+        }
+        .base-modal-body {
+            .base-modal-body-content {
+                padding: 15px;
+                .base-modal-text {
+                    line-height: 30px;
+                }
+            }
+        }
+        .base-modal-foot {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+    }
+}
+
+.base-loading-spinner {
+    width: 10px;
+    height: 10px;
+    border: 1px solid $mainBorder;
+    border-radius: 10px;
+    border-top-color: $alternateBorder;
+}
+
+@media (max-width: 960px) {
+    .base-navbar {
+        flex-direction: column;
+        .nav-brand-icons {
+            width: 100%
+        }
+        .control-panel {
+            height: 100%;
+        }
+        .nav-menu {
+            display: flex;
+            flex-direction: column !important;
+            width: 100%;
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+            }
+            a,
+            span {
+                text-align: left;
+                font-size: 14px;
+                padding: 10px;
+                cursor: pointer !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .base-modal-container {
+        .base-modal-content {
+            width: 90% !important;
+        }
+    }
+}

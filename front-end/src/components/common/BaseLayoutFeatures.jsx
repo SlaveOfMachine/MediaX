@@ -55,7 +55,7 @@ function Loader() {
 
 function AxiosMessage() {
     return (
-        <div className='axios-message-container'>
+        <div className='axios-message-container slide-down'>
             <div className='axios-message'>Server error</div>
         </div>
     )
@@ -102,7 +102,7 @@ function BaseCard(props) {
 
 function BaseNavPopup(props) {
     return (
-        <div className={`popup-container smooth-shadow ${props.toggle ? '' : 'd-none'}`}>
+        <div className={`base-popup-container smooth-shadow ${props.toggle ? '' : 'd-none'}`}>
             <div className='nav-popup-menu'>
                 <div className='nav-popup-menu-item' onClick={() => props.logout()}>Logout</div>
             </div>
@@ -111,10 +111,21 @@ function BaseNavPopup(props) {
 }
 
 function BaseButton(props) {
+    const loading = props.loading;
     return (
         <div className="base-button-container">
-            <button onClick={props.clicked} className={`base-button ${props.type || 'dark'}`}>{props.title}</button>
+            <button
+                onClick={!loading ? props.clicked : null}
+                className={`base-button ${props.type || 'dark'}`}>
+                <span className='base-button-text'>{loading && <BaseSpinner />} { props.title || 'Title' }</span>
+            </button>
         </div>
+    )
+}
+
+function BaseSpinner() {
+    return (
+        <div className='spinner base-loading-spinner'></div>
     )
 }
 

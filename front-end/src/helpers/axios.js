@@ -47,10 +47,18 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use((response) => {
     toggleLoader(true);
+    if (response.data.message && response.data.showMessage) {
+        toggleMessage(response.data.message);
+    }
     return response;
 }, (error) => {
     toggleLoader(true);
     toggleMessage(error);
+    const authError = error.response.status === 401;
+    if (authError) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+    }
     return Promise.reject(error);
 });
 

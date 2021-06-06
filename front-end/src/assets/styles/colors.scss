@@ -7,15 +7,15 @@ $mainBlue: #01579b;
 $mainSection: #37474f;
 
 $alternateBorder: #182023;
+$alternateSection: #ebebeb;
 $transparentCover: rgba(0, 0, 0, 0.603);
 
 $primary: #3C59F0;
 $success: #69f0ae;
-$danger: #ff3d00;
+$danger: #a0310f;
 $info: #b3e5fc;
 $warning: #b37137;
 $dark: #151419;
-
 
 // Color Classes
 .primary {
@@ -30,7 +30,7 @@ $dark: #151419;
 
 .info {
     background: $info !important;
-    color: $mainLight;
+    color: $mainDark
 }
 
 .danger {

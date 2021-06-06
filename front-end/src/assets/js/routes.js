@@ -1,10 +1,48 @@
-const routes = {
-    login: { path: '/', auth: false },
-    register: { path: '/register', auth: false },
-    dashboard: { path: '/dashboard', auth: true },
-    collections: { path: '/collections', auth: true },
-    settings: { path: '/settings', auth: true },
-    emailVerify: { path: '/emailVerify/:hash', auth: false }
-}
+import Pages from '../../render/Pages';
+import {
+    PublicRoute,
+    PrivateRoute,
+    VerificationRoute
+} from '../../helpers/middleware';
+import { Route } from 'react-router';
+
+
+const routes = [
+    {
+        component: Pages.Login,
+        path: '/',
+        type: PublicRoute,
+    },
+    {
+        component: Pages.Register,
+        path: '/register',
+        type: PublicRoute,
+    },
+    {
+        component: Pages.Dashboard,
+        path: '/dashboard',
+        type: PrivateRoute,
+    },
+    {
+        component: Pages.Collections,
+        path: '/collections',
+        type: PrivateRoute,
+    },
+    {
+        component: Pages.Settings,
+        path: '/settings',
+        type: PrivateRoute,
+    },
+    {
+        component: Pages.VerificationProcess,
+        path: '/emailVerify/:hash',
+        type: VerificationRoute,
+    },
+    {
+        component: Pages.PageNotFound,
+        path: '/404',
+        type: Route,
+    }
+]
 
 export default routes;

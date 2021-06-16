@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import BaseInput from '../components/common/BaseInput';
 import BaseHelper from '../components/common/BaseHelper';
 import { connect } from 'react-redux';
-import { login } from '../store/index';
+import { login } from '../store';
 
 class Login extends BaseHelper {
     state = {

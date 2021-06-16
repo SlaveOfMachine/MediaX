@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import BaseInput from '../components/common/BaseInput';
 import BaseHelper from '../components/common/BaseHelper';
-import { register } from '../store/actions/authActions';
+import { register } from '../store';
 
 class Register extends BaseHelper {
 

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import BaseHelper from '../../components/common/BaseHelper';
+import { connect } from 'react-redux';
+import { verifyEmail } from '../../store';
 
 function VerificationProcess(props) {
     VerifyEmail(props);
@@ -17,22 +17,21 @@ function VerificationProcess(props) {
 function VerifyEmail(props) {
     const hash = props.match.params.hash;
     if (hash) {
-        const user = JSON.parse(localStorage.getItem('user'));
-        axios.get(`auth/verify-email/${user.id}/${hash}`, { headers: { noLoading: true } })
-            .then(response => {
-                if (!response.data.success) {
-                    const messageContainer = document.querySelector('.verificaton-text');
-                    if (messageContainer) {
-                        messageContainer.innerHTML = response.data.message;
-                    }
-                    return false;
-                }
-                const helper = new BaseHelper();
-                return helper.handleAuthResponse(response);
-            }).catch(error => {
-                console.log(error);
-            });
+        props.verifyEmail({
+            user_id: props.user.id,
+            hash,
+        })
     }
 }
 
-export default VerificationProcess;
+const mapStateToProps = state => ({
+    user: state.user,
+})
+
+const mapDispatchToProps = dispatch => ({
+    verifyEmail: (payload) => {
+        dispatch(verifyEmail(payload))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(VerificationProcess);

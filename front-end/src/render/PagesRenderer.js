@@ -3,13 +3,16 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { Navbar } from '../components/common/BaseLayoutFeatures';
 import Routes from '../assets/js/routes';
 import { connect } from 'react-redux';
+import { logout } from '../store';
 
-function PagesRenderer({isAuthorised, user}) {
-
+function PagesRenderer(props) {
+    const LogoutUser = () => {
+        props.logout();
+    }
     return (
         <div className='page-view'>
             <BrowserRouter>
-                <AuthNavbar isAuthorised={isAuthorised} user={user} />
+                <AuthNavbar logout={LogoutUser} isAuthorised={props.isAuthorised} user={props.user} />
                 <Switch>
                     <ViewsRender routes={Routes} />
                 </Switch>
@@ -20,7 +23,7 @@ function PagesRenderer({isAuthorised, user}) {
 
 function AuthNavbar(props) {
     return props.isAuthorised && props.user ?
-        <Navbar verifiedUser={props.user.emailVerified}/> : '';
+        <Navbar logout={props.logout} verifiedUser={props.user.emailVerified}/> : '';
 }
 
 function ViewsRender(props) {
@@ -35,10 +38,15 @@ function ViewsRender(props) {
     })
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isAuthorised: state.isAuthorised,
     user: state.user,
 })
 
+const mapDispatchToProps = dispatch => ({
+    logout: () => {
+        dispatch(logout())
+    }
+})
 
-export default connect(mapStateToProps)(PagesRenderer);
+export default connect(mapStateToProps, mapDispatchToProps)(PagesRenderer);

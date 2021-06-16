@@ -1,6 +1,6 @@
 import { BaseButton } from '../../components/common/BaseLayoutFeatures';
 import { connect } from 'react-redux';
-import { resendVerificationMail } from '../../store/index';
+import { resendVerificationMail } from '../../store';
 
 function VerificationPending({user, resendMail}) {
     return (

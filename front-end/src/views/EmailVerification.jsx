@@ -2,6 +2,7 @@ import React from 'react';
 import { BaseButton } from '../components/common/BaseLayoutFeatures';
 import axios from 'axios';
 import BaseHelper from '../components/common/BaseHelper';
+import { connect } from 'react-redux';
 
 function VerificationPending() {
     return (
@@ -69,6 +70,10 @@ function VerifyEmail(props) {
             });
     }
 }
+
+const mapStateToProps = (state, props) => ({
+    user: state.user,
+})
 
 export {
     VerificationPending,

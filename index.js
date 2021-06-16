@@ -6,7 +6,6 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 const routes = require('./routes');
-const db = require('./config/database');
 const corsDomains = require('./config/corsDomains');
 
 const { SERVER_PORT, SERVER_URL } = process.env;

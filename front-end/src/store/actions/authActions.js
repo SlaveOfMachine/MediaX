@@ -19,8 +19,10 @@ export const register = (payload) => {
 }
 
 export const resendVerificationMail = () => {
-    axios.post('mailer', { action: 'welcome-mail' })
-        .catch(error => console.log(error));
+    return function() {
+        axios.post('mailer', { action: 'welcome-mail' })
+            .catch(error => console.log(error));
+    }
 }
 
 function handleAuthResponse(response, dispatch) {

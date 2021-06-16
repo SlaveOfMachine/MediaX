@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { VerificationPending } from '../views/EmailVerification';
+import VerificationPending from '../views/EmailVerification/VerificationPending';
 import jwt_decode from 'jwt-decode';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

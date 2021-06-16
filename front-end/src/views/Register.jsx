@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import axios from '../helpers/axios';
+import { connect } from 'react-redux';
 import BaseInput from '../components/common/BaseInput';
 import BaseHelper from '../components/common/BaseHelper';
+import { register } from '../store/actions/authActions';
 
 class Register extends BaseHelper {
 
@@ -23,9 +24,7 @@ class Register extends BaseHelper {
         await this.validate('register');
         if (this.state.validated) {
             const data = this.state.formParams;
-            axios.post('auth/register', data)
-                .then(response => this.handleAuthResponse(response))
-                .catch(error => console.log(error))
+            this.props.registerUser(data);
         }
     }
 
@@ -110,4 +109,10 @@ class Register extends BaseHelper {
     }
 }
 
-export default Register;
+const mapDispatchToProps = (dispatch) => ({
+    registerUser: (payload) => {
+        dispatch(register(payload));
+    }
+})
+
+export default connect(null, mapDispatchToProps)(Register);

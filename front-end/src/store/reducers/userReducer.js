@@ -1,4 +1,4 @@
-import { AUTHORIZE } from '../actionTypes';
+import { AUTHORIZE, UN_AUTHORIZE } from '../actionTypes';
 
 const INITIAL_STATE = {
     isAuthorised: false,
@@ -6,10 +6,16 @@ const INITIAL_STATE = {
     user: {},
 }
 
-const AuthReducer = (state = INITIAL_STATE, action) => {
+const UserReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case AUTHORIZE:
             return { ...state, ...action.payload }
+        case UN_AUTHORIZE:
+            return {
+                isAuthorised: false,
+                token: null,
+                user: {},   
+            }
         default:
             return {
                 isAuthorised: localStorage.getItem('accessToken') ? true : false,
@@ -19,4 +25,4 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default AuthReducer;
+export default UserReducer;

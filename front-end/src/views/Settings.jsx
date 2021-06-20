@@ -1,8 +1,9 @@
 import React from 'react';
-import axios from '../helpers/axios';
 import BaseInput from '../components/common/BaseInput';
 import BaseConfirmModal from '../components/common/BaseConfirmModal';
 import { BaseButton } from '../components/common/BaseLayoutFeatures';
+import { connect } from 'react-redux';
+import { changeEmail } from '../store/actions/userActions';
 
 const SIDEBAR_MENU = [
     { section: 'profile', label: 'PROFILE' },
@@ -32,14 +33,10 @@ class Settings extends React.Component {
     }
 
     getProfileData = () => {
-        axios.get('settings/user').then(response => {
-                const user = response.data.user;
-                if (user) {
-                    user.password = '';
-                    user.confirm_password = '';
-                    this.setState({ user });
-                }
-            }).catch(error => console.log(error));
+        const user = this.props.user;
+        user.password = '';
+        user.confirm_password = '';
+        this.setState({ user });
     }
 
     handleInputChange = (event) => {
@@ -55,7 +52,7 @@ class Settings extends React.Component {
 
     sendEmailChangeMail = () => {
         this.loader();
-        axios.post('mailer', { action: 'change-email' }, {headers: {noLoading: true}})
+        changeEmail()
             .then(response => {
                 this.loader(false);
                 this.emailChangeModal();
@@ -179,6 +176,7 @@ function ProfileSection(props) {
                         value={user.password}
                         onInputChange={props.instance.handleInputChange}
                         name='password'
+                        type='password'
                     />
                     <BaseInput
                         placeholder='Confirm Old Password'
@@ -187,6 +185,7 @@ function ProfileSection(props) {
                         value={user.confirm_password}
                         onInputChange={props.instance.handleInputChange}
                         name='confirm_password'
+                        type='password'
                     />
                 </div>
             </div>
@@ -224,4 +223,8 @@ function IntegrationsSection() {
     )
 }
 
-export default Settings;
+const mapStateToProps = (state) => ({
+    user: state.auth.user,
+})
+
+export default connect(mapStateToProps, null)(Settings);

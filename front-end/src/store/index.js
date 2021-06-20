@@ -1,15 +1,19 @@
 import { createStore, applyMiddleware, combineReducers  } from 'redux';
 import thunk from 'redux-thunk';
-import AuthReducer from './reducers/authReducer';
+import UserReducer from './reducers/userReducer';
+import MediaReducer from './reducers/mediaReducer';
 
 // Combine Reducers
-const reducer = AuthReducer;
+const reducer = combineReducers({
+    auth: UserReducer,
+    media: MediaReducer,
+});
 
 // Init Store
 const store = createStore(reducer, applyMiddleware(thunk));
 
 // Export Actions
-export * from './actions/authActions';
+export * from './actions/userActions';
 
 // Export Store
 export default store;

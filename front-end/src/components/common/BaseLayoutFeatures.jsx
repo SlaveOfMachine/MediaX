@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import defaultUser from '../../assets/icons/defaultUser.svg';
@@ -19,13 +18,13 @@ function Navbar(props) {
                     </div>
                 </div>
                 <div className={`nav-menu ${expanded ? '' : 'desktop-element'}`}>
-                    <NavLinks verified={props.verifiedUser} />
+                    <NavLinks logout={props.logout} verified={props.verifiedUser} />
                     <span className='desktop-element control-panel' onClick={() => togglePopup(!popup)}>
                         <img src={defaultUser} alt="profile"/>
                     </span>
                 </div>
             </div>
-            <BaseNavPopup toggle={popup} logout={logout} />
+            <BaseNavPopup toggle={popup} logout={props.logout} />
         </div>
     )
 }
@@ -38,11 +37,11 @@ function NavLinks(props) {
                 <Link to='/collections' className='nav-link'>COLLECTIONS</Link>
                 <Link to='/settings' className='nav-link'>SETTINGS</Link>
                 <Link to='/channel' className='nav-link'>CHANNEL</Link>
-                <span className='nav-link mobile-element' onClick={logout}>LOGOUT</span>
+                <span className='nav-link mobile-element' onClick={props.logout}>LOGOUT</span>
             </span>
         )
     }
-    return <span className='nav-link mobile-element' onClick={logout}>LOGOUT</span>
+    return <span className='nav-link mobile-element' onClick={props.logout}>LOGOUT</span>
 }
 
 function Loader() {
@@ -59,17 +58,6 @@ function AxiosMessage() {
             <div className='axios-message'>Server error</div>
         </div>
     )
-}
-
-function logout() {
-    axios.post('/auth/logout')
-        .then(response => {
-            if (response.data.success) {
-                localStorage.removeItem('accessToken');
-                window.location.replace('/');
-            }
-        })
-        .catch(error => console.log(error));
 }
 
 function MenuIcon() {

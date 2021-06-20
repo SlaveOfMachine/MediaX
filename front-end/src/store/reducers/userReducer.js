@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     user: {},
 }
 
-const AuthReducer = (state = INITIAL_STATE, action) => {
+const UserReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case AUTHORIZE:
             return { ...state, ...action.payload }
@@ -25,4 +25,4 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default AuthReducer;
+export default UserReducer;

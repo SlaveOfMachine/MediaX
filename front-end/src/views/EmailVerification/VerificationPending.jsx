@@ -26,7 +26,7 @@ function VerificationPending({user, resendMail}) {
 }
 
 const mapStateToProps = state => ({
-    user: state.user,
+    user: state.auth.user,
 })
 
 const mapDispatchToProps = dispatch => ({

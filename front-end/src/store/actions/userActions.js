@@ -58,6 +58,18 @@ export const verifyEmail = (payload) => {
     }
 }
 
+export const changeEmail = () => {
+    return new Promise((resolve, reject) => {
+        const headers = { headers: { noLoading: true } };
+        axios.post('mailer', {action: 'change-email'}, headers)
+            .then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            })
+    })
+}
+
 function handleAuthResponse(response, dispatch) {
     const token = response.data.token;
     const tokenObject = jwt_decode(token);

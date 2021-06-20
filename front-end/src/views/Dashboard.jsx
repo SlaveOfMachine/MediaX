@@ -1,28 +1,20 @@
 import React from 'react';
 import BaseHelper from '../components/common/BaseHelper';
-import axios from 'axios';
 import { BaseCard } from '../components/common/BaseLayoutFeatures';
+import { connect } from 'react-redux';
+import { getMediaCounts } from '../store/actions/mediaActions';
 
 class Dashboard extends BaseHelper {
-    state = {
-        collections: 0,
-        videos: 0,
-        audios: 0,
-        slides: 0,
-    }
     componentDidMount() {
         this.getAnalytics();
     }
 
     getAnalytics() {
-        axios.get('analytics?count_only=true')
-            .then(response => {
-                this.setState(response.data.collectionData);
-            }).catch(error => console.log(error))
+        this.props.mediaCount();
     }
 
     render() {
-        const { videos, audios, slides, collections } = this.state;
+        const { videos, audios, slides, collections } = this.props.counts;
         return (
             <div className='dashboard-container'>
                 <div className="upper-section">
@@ -39,4 +31,14 @@ class Dashboard extends BaseHelper {
 
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+    counts: state.media.counts,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    mediaCount: () => {
+        dispatch(getMediaCounts())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -25,7 +25,7 @@ function VerifyEmail(props) {
 }
 
 const mapStateToProps = state => ({
-    user: state.user,
+    user: state.auth.user,
 })
 
 const mapDispatchToProps = dispatch => ({

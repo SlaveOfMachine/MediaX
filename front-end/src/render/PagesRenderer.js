@@ -39,8 +39,8 @@ function ViewsRender(props) {
 }
 
 const mapStateToProps = state => ({
-    isAuthorised: state.isAuthorised,
-    user: state.user,
+    isAuthorised: state.auth.isAuthorised,
+    user: state.auth.user,
 })
 
 const mapDispatchToProps = dispatch => ({

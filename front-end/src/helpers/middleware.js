@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import VerificationPending from '../views/EmailVerification/VerificationPending';
 import jwt_decode from 'jwt-decode';
+import routes from '../assets/js/routes';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const computeRenderProps = props => {

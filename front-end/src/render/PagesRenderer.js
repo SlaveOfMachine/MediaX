@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Switch } from "react-router-dom";
-import { Navbar } from '../components/common/BaseLayoutFeatures';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Navbar, PageNotFound } from '../components/common/BaseLayoutFeatures';
 import Routes from '../assets/js/routes';
 import { connect } from 'react-redux';
 import { logout } from '../store';
@@ -14,7 +14,17 @@ function PagesRenderer(props) {
             <BrowserRouter>
                 <AuthNavbar logout={LogoutUser} isAuthorised={props.isAuthorised} user={props.user} />
                 <Switch>
-                    <ViewsRender routes={Routes} />
+                    {
+                        Routes.map((route, index) => {
+                            return <route.type
+                                path={route.path}
+                                component={route.component}
+                                key={index}
+                                exact
+                            />
+                        })
+                    }
+                    <Route component={PageNotFound} />
                 </Switch>
             </BrowserRouter>
         </div>
@@ -24,18 +34,6 @@ function PagesRenderer(props) {
 function AuthNavbar(props) {
     return props.isAuthorised && props.user ?
         <Navbar logout={props.logout} verifiedUser={props.user.emailVerified}/> : '';
-}
-
-function ViewsRender(props) {
-    const routes = props.routes || [];
-    return routes.map((route, index) => {
-        return <route.type
-            path={route.path}
-            component={route.component}
-            key={index}
-            exact
-        />
-    })
 }
 
 const mapStateToProps = state => ({

@@ -11,12 +11,22 @@
         height: 100%;
         border-radius: 1px;
         .settings-sidebar {
-            background: $mainSection;
+            border-right: 1px solid $alternateBorder;
             width: max-content;
-            padding: 15px 30px;
+            padding: 25px 0;
             height: 100%;
             .sidebar-content {
-                padding: 15px;
+                padding: 1.5em 3em;
+                display: flex;
+                align-items: flex-end;
+                cursor: pointer;
+                transition: 0.3s;
+                .sidebar-label {
+                    padding-left: 15px;
+                }
+                &:hover {
+                    background: $mainCard;
+                }
             }
         }
         .settings-body {
@@ -63,8 +73,11 @@
     .settings-container {
         .settings-content {
             .settings-sidebar {
-                .sidebar-label {
-                    display: none;
+                .sidebar-content {
+                    padding: 1em;
+                    .sidebar-label {
+                        display: none;
+                    }
                 }
             }
             .settings-body {

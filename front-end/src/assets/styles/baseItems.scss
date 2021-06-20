@@ -121,6 +121,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    border-bottom: 1px solid $alternateBorder;
     .base-navbar {
         margin: auto;
         min-height: 20px;

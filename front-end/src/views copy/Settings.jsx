@@ -1,15 +1,10 @@
 import React from 'react';
-import Icon from '@mdi/react';
-import {
-    mdiAccount,
-    mdiChip,
-    mdiCurrencyUsd
-} from '@mdi/js';
+import Icon from '@mdi/react'
 
 const SIDEBAR_MENU = [
-    { section: 'profile', label: 'PROFILE', icon: mdiAccount },
-    { section: 'subscription', label: 'SUBSCRIPTION', icon: mdiCurrencyUsd },
-    { section: 'integrations', label: 'INTEGRATION', icon: mdiChip },
+    { section: 'profile', label: 'PROFILE' },
+    { section: 'subscription', label: 'SUBSCRIPTION' },
+    { section: 'integrations', label: 'INTEGRATION' },
 ];
 function Settings () {
     return (
@@ -27,16 +22,15 @@ function Settings () {
 function SideBar() {
     const sidebarContents = SIDEBAR_MENU.map((menu,index) => {
         return <div
-            className="sidebar-content"
-            key={index}
-        >
-            <Icon className="sidebar-icon" path={menu.icon} size={1} />
+            className='sidebar-content'
+            key={index}>
             <span className="sidebar-label">
+                <i className='account-circle'></i>
                 { menu.label }
             </span>
         </div>
     })
-    return <div className='settings-sidebar smooth-shadow'>
+    return <div className='settings-sidebar'>
         { sidebarContents }
     </div>
 }

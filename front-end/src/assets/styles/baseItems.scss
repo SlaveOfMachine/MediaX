@@ -79,6 +79,23 @@
     }
 }
 
+.base-card-static {
+    background: $mainCard;
+    color: $mainLight;
+    padding: 15px;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.base-card-outlined {
+    background: transparent;
+    color: $mainLight;
+    padding: 15px;
+    border-radius: 2px;
+    transform: 0.3s;
+    border: 1px solid $mainBorder;
+}
+
 .base-card-component {
     height: 150px;
     position: relative;

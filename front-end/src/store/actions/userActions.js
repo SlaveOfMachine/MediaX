@@ -58,7 +58,7 @@ export const verifyEmail = (payload) => {
     }
 }
 
-export const changeEmail = () => {
+export const changeEmailMail = () => {
     return new Promise((resolve, reject) => {
         const headers = { headers: { noLoading: true } };
         axios.post('mailer', {action: 'change-email'}, headers)
@@ -67,6 +67,15 @@ export const changeEmail = () => {
             }).catch(error => {
                 reject(error);
             })
+    })
+}
+
+export const changeEmail = (email) => {
+    return new Promise((resolve, reject) => {
+        const headers = { headers: { noLoading: true } };
+        axios.post('/auth/change-email', {email}, headers)   
+            .then(response => resolve(response))
+            .catch(error => reject(error));
     })
 }
 

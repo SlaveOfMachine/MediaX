@@ -24,6 +24,17 @@ class FormValidator {
 
         return errors;
     }
+
+    validateEmailChangeForm(formData) {
+        const errors = {};
+        if (!formData.email) {
+            errors.email = 'Please enter your new email';
+        } else if (!formData.email.match(this.regex.email)) {
+            errors.email = 'Email is incorrect';
+        }
+        console.log(errors);
+        return errors;
+    }
 }
 
 const Validator = new FormValidator();

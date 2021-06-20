@@ -43,6 +43,12 @@ class BaseHelper extends React.Component {
             case 'register':
                 errors = FormValidator.validateRegisterForm(formData)
             break;
+            case 'email-change':
+                errors = FormValidator.validateEmailChangeForm(formData)
+            break;
+            case 'setting-profile':
+                errors = FormValidator.validateSettingProfile(formData);
+            break;
             default:
                 errors = {};
             break;
@@ -62,6 +68,12 @@ class BaseHelper extends React.Component {
         localStorage.setItem('accessToken', token);
         localStorage.setItem('user', JSON.stringify(user));
         window.location.reload();
+    }
+
+    loading() {
+        this.setState({
+            loading: !this.state.loading
+        })
     }
 
 }

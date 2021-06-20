@@ -133,6 +133,10 @@ class AuthController extends AuthHelper {
         }
         return response.status(200).json({ message: 'This link is no longer valid',  success: false });
     }
+
+    changeEmail(request, response) {
+        console.log(request.user);
+    }
 }
 
 const Auth = new AuthController();

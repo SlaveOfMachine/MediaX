@@ -85,6 +85,7 @@ body {
         text-align: left;
         width: 100%;
         font-size: 12px;
+        margin-top: 5px;
     }
     
     .fail-border { border-color: $mainRed !important; }
@@ -121,6 +122,22 @@ body {
     @media (max-width: 960px) {
         .desktop-element { display: none !important; }
         .mobile-element { display: block; }
+    }
+
+    .centered-horizontal {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: max-content;
+    }
+
+    .centered-vertical {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: max-content;
     }
 }
 

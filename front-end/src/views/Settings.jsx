@@ -16,6 +16,7 @@ class Settings extends React.Component {
         user: {},
         showEmailChangeModal: false,
         loading: false,
+        showPassword: false,
     }
 
     componentDidMount() {

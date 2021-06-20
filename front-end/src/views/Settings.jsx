@@ -34,6 +34,8 @@ class Settings extends React.Component {
 
     getProfileData = () => {
         const user = this.props.user;
+        user.password = '';
+        user.confirm_password = '';
         this.setState({ user });
     }
 
@@ -174,6 +176,7 @@ function ProfileSection(props) {
                         value={user.password}
                         onInputChange={props.instance.handleInputChange}
                         name='password'
+                        type='password'
                     />
                     <BaseInput
                         placeholder='Confirm Old Password'
@@ -182,6 +185,7 @@ function ProfileSection(props) {
                         value={user.confirm_password}
                         onInputChange={props.instance.handleInputChange}
                         name='confirm_password'
+                        type='password'
                     />
                 </div>
             </div>

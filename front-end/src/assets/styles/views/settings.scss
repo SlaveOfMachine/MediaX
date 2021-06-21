@@ -2,19 +2,22 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: calc(100vh - 72.5px);
-    position: relative;
     justify-self: center;
-    overflow: hidden;
     .settings-content {
         width: 100%;
         height: 100%;
         border-radius: 1px;
+        display: flex;
+        justify-content: space-between;
         .settings-sidebar {
             border-right: 1px solid $alternateBorder;
             width: max-content;
             padding: 25px 0;
-            height: 100%;
+            position: fixed;
+            top: 72px;
+            bottom: 0;
+            width: 300px;
+            margin: auto;
             .sidebar-content {
                 padding: 1.5em 3em;
                 display: flex;
@@ -28,40 +31,57 @@
                     background: $mainCard;
                 }
             }
+            .sidebar-content-highlighted {
+                background: $mainCard;
+            }
         }
         .settings-body {
             transition: 0.3s;
             display: flex;
+            border: 1px solid $alternateBorder;
+            width: 100%;
+            height: max-content;
+            margin: 5em 2em 5em calc(300px + 2rem);
+            padding: 3em;
+            border-radius: 3px;
             .settings-section {
-                border: 1px solid $alternateBorder;
                 width: 100%;
-                height: max-content;
-                background: $dark;
-                min-height: 500px;
-                .setting-section-title {
-                    text-align: center;
-                    padding: 15px 0;
+                .section-head {
+                    padding: 1.5rem 0;
+                    font-size: 2rem;
+                    border-bottom: 1px solid $alternateBorder;
                 }
-                .section-content {
-                    .sub-section {
-                        padding: 15px 40px;
-                        .sub-section-title {
-                            font-weight: bolder;
-                            padding: 10px 0;
-                        }
-                        .section-inputs {
-                            display: grid;
-                            grid-template-columns: 48% 48%;
-                            grid-gap: 20px;
+                .section-body {
+                    padding: 1.5rem 0;
+                    .input-group {
+                        width: max-content;
+                        display: flex;
+                        justify-content: space-around;
+                        margin-bottom: 30px;
+                        .input-label {
+                            &:nth-child(2) {
+                                padding: 0 40px;
+                            }
+                            .base-input-container {
+                                border: 1px solid $alternateBorder;
+                                width: 300px;
+                                margin: 10px 0 !important;
+                                .base-input {
+                                    border-radius: 2px;
+                                    font-size: 16px;
+                                    margin: 0.2rem 1rem;
+                                }
+                                .base-input::placeholder {
+                                    color: $mainLight;
+                                }
+                            }
                         }
                     }
-                    .section-buttons {
-                        padding: 25px;
-                        display: flex;
-                        .base-button {
-                            margin: 0 15px;
-                            width: 100px;
-                        }
+                }
+                .section-foot {
+                    display: flex;
+                    .base-button-container {
+                        padding-right: 1em;
                     }
                 }
             }
@@ -73,6 +93,7 @@
     .settings-container {
         .settings-content {
             .settings-sidebar {
+                width: 57px;
                 .sidebar-content {
                     padding: 1em;
                     .sidebar-label {
@@ -83,14 +104,16 @@
             .settings-body {
                 flex-direction: column;
                 width: 100%;
-                .settings-section {
-                    width: auto;
-                    .section-content {
-                        .sub-section {
-                            .section-inputs {
-                                display: flex;
-                                flex-direction: column;
-                            }
+                margin: 5em 2em 5em calc(57px + 2em);
+                .input-group {
+                    flex-direction: column;
+                    width: 100% !important;
+                    .input-label {
+                        &:nth-child(2) {
+                            padding: 0 !important;
+                        }
+                        .base-input-container {
+                            width: 100% !important;
                         }
                     }
                 }

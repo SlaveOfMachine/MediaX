@@ -82,6 +82,11 @@
                     display: flex;
                     .base-button-container {
                         padding-right: 1em;
+                        button {
+                            width: 100px;
+                            font-size: 16px;
+                            border-radius: 2px;
+                        }
                     }
                 }
             }

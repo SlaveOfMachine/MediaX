@@ -16,10 +16,11 @@ class Login extends BaseHelper {
         showPassword: false,
         authLevel: false,
         isAuthorised: false,
+        pageName: 'login',
     }
 
     login = async () => {
-        await this.validate('login');
+        await this.validate();
         if (this.state.validated) {
             const data = this.state.formParams;
             this.props.authenticate(data);

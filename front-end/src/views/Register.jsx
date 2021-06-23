@@ -18,10 +18,11 @@ class Register extends BaseHelper {
         errors: {},
         showPassword: false,
         authPage: false,
+        pageName: 'register',
     }
 
     register = async () => {
-        await this.validate('register');
+        await this.validate();
         if (this.state.validated) {
             const data = this.state.formParams;
             this.props.registerUser(data);

@@ -32,7 +32,20 @@ class FormValidator {
         } else if (!formData.email.match(this.regex.email)) {
             errors.email = 'Email is incorrect';
         }
-        console.log(errors);
+        return errors;
+    }
+
+    validateSettingProfile(formData) {
+        const errors = {};
+        if (!formData.name) {
+            errors.name = 'Please enter your name';
+        }
+        if (formData.new_password && !formData.old_password) {
+            errors.old_password = 'You need to enter your old password to set new password'
+        }
+        if (formData.new_password && formData.new_password.length < 8) {
+            errors.new_password = 'A password with a minimum length of 8 is required'
+        }
         return errors;
     }
 }

@@ -14,17 +14,14 @@ class BaseHelper extends React.Component {
     handleInputs = (event) => {
         const formParams = this.state.formParams;
         formParams[event.target.name] = event.target.value;
-
         if (this.state.liveValidate) this.validate();        
-        this.setState({
-            formParams,
-        })
+        this.setState({ formParams })
     }
 
     validate = (form) => {
         const formData = this.state.formParams;
 
-        const errors = this.validateForms(form, formData);
+        const errors = this.validateForms(formData);
         const validated = Object.keys(errors).length === 0;
 
         this.setState({
@@ -34,8 +31,9 @@ class BaseHelper extends React.Component {
         })
     }
 
-    validateForms(form, formData) {
+    validateForms(formData) {
         let errors = null;
+        const form = this.state.pageName;
         switch (form) {
             case 'login':
                 errors = FormValidator.validateLoginForm(formData)

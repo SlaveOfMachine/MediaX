@@ -13,10 +13,11 @@ class VerificationEmailChange extends BaseHelper {
             email: '',
         },
         validated: false,
+        pageName: 'email-change',
     }
 
     changeEmail = async () => {
-        await this.validate('email-change');
+        await this.validate();
         if (this.state.validated) {
             this.loading();
             changeEmail()

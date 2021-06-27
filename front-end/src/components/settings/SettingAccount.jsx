@@ -3,6 +3,8 @@ import BaseInput from '../common/BaseInput';
 import { BaseButton } from '../common/BaseLayoutFeatures';
 import BaseHelper from '../common/BaseHelper';
 import { connect } from 'react-redux';
+import BaseConfirmModal from '../common/BaseConfirmModal';
+import { changeEmailMail, updateUser } from '../../store/actions/userActions';
 
 class SettingAccount extends BaseHelper {
     state = {
@@ -16,6 +18,8 @@ class SettingAccount extends BaseHelper {
         liveValidate: false,
         errors: {},
         pageName: 'setting-profile',
+        emailDialog: false,
+        loading: false,
     }
 
     componentDidMount() {
@@ -33,10 +37,34 @@ class SettingAccount extends BaseHelper {
         this.setState({ formParams });
     }
 
+    toggleEmailDialog = () => {
+        this.setState({
+            emailDialog: !this.state.emailDialog
+        })
+    }
+
+    loader = (loading = true) => {
+        this.setState({ loading });
+    }
+
+    sendEmailChangeMail = () => {
+        this.loader();
+        changeEmailMail()
+            .then(response => {
+                this.loader(false);
+                this.toggleEmailDialog();
+            })
+            .catch(error => {
+                this.loader(false);
+                console.log(error);
+                this.toggleEmailDialog();
+            });
+    }
+
     save = async () => {
         await this.validate();
         if (this.state.validated) {
-            
+            this.props.updateUser(this.state.formParams);
         }
     }
 
@@ -71,6 +99,7 @@ class SettingAccount extends BaseHelper {
                                 disabled={true}
                                 value={ email }
                                 onInputChange={ this.handleInputs }
+                                eventTriggered={ this.toggleEmailDialog }
                             />
                         </div>
                     </div>
@@ -113,6 +142,20 @@ class SettingAccount extends BaseHelper {
                         clicked={ this.populateUser }
                     />
                 </div>
+                <div className="modals">
+                    {
+                        this.state.emailDialog &&
+                        <BaseConfirmModal
+                            title='Change Email'
+                            description='You will get a email containing the link, please click on it to change your current email.'
+                            confirmButtonText='Send Email'
+                            cancelButtonText="Don't Send"
+                            close={ this.toggleEmailDialog }
+                            confirm={ this.sendEmailChangeMail }
+                            loading={ this.state.loading }
+                        /> 
+                    }
+                </div>
             </div>
         )
     }
@@ -120,6 +163,12 @@ class SettingAccount extends BaseHelper {
 
 const mapStateToProps = state => ({
     user: state.auth.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+    updateUser: (payload) => {
+        dispatch(updateUser(payload))
+    }
 })
 
-export default connect(mapStateToProps, null)(SettingAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingAccount);

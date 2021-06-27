@@ -79,6 +79,24 @@ export const changeEmail = (email) => {
     })
 }
 
+export const updateUser = (payload) => {
+    return function(dispatch) {
+        axios.put('auth/user', payload)
+            .then(response => {
+                if (!response.data.success) {
+                    return window.$alertMessage(response.data.message || 'Failed to update user.');
+                }
+                if (!response.data.password_success) {
+                    return window.$alertMessage(response.data.message || 'Password not updated.');
+                }
+                return handleAuthResponse(response, dispatch);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+}
+
 function handleAuthResponse(response, dispatch) {
     const token = response.data.token;
     const tokenObject = jwt_decode(token);

@@ -30,7 +30,7 @@ module.exports = {
         allowNull: true,
       },
       refreshToken: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(260),
         allowNull: true,
       },
       createdAt: {

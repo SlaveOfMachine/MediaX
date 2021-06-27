@@ -111,7 +111,7 @@ class AuthHelper {
         const accessToken = this.getTokenString(user, secretKey, '8 days');
         const refreshToken = this.getRefreshToken(user, secretKey, oldRefreshToken);
 
-        return { accessToken, refreshToken };
+        return { accessToken, refreshToken, user };
     }
 
     getTokenString(user, secretKey, expiresIn) {
@@ -121,7 +121,10 @@ class AuthHelper {
                 secretKey,
                 {expiresIn}
             );
-        } catch (Ex) { return null }
+        } catch (Ex) {
+            logger.error(Ex);
+            return null;
+        }
     }
 
     getRefreshToken(user, secretKey, refreshToken) {

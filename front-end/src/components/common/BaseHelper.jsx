@@ -1,6 +1,5 @@
 import React from 'react';
 import FormValidator from '../../assets/js/formValidator';
-import jwt_decode from 'jwt-decode';
 
 class BaseHelper extends React.Component {
 
@@ -52,20 +51,6 @@ class BaseHelper extends React.Component {
             break;
         }
         return errors;
-    }
-
-    handleAuthResponse(response) {
-        const token = response.data.token;
-        if (!token) {
-            const errors = this.state.errors;
-            errors.email = 'Failed to login';
-            return this.setState({ errors });
-        }
-        const tokenObject = jwt_decode(token);
-        const user = tokenObject.user || {};
-        localStorage.setItem('accessToken', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        window.location.reload();
     }
 
     loading() {

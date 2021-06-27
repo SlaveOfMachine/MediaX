@@ -15,4 +15,21 @@ function App() {
   );
 }
 
+window.$alertMessage = (message) => {
+  const messageContainer = document.querySelector('.axios-message-container');
+  console.log(messageContainer, message);
+  if (message && messageContainer) {
+      const messageElement = document.querySelector('.axios-message');
+      if (messageElement) {
+          messageElement.innerHTML = message;
+      }
+  }
+  if (messageContainer.style.display !== 'block') {
+      messageContainer.style.display = 'block';
+      setTimeout(() => {
+          messageContainer.style.display = 'none';
+      }, 3000);
+  }
+}
+
 export default App;

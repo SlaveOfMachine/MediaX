@@ -14,22 +14,10 @@ function toggleLoader(hide = false) {
 }
 
 function toggleMessage(error = null) {
-    const messageContainer = document.querySelector('.axios-message-container');
-    if (messageContainer) {
-        const errorData = error.response ? error.response.data : null;
-        const message = errorData && errorData.message ? errorData.message : error;
-        if (message) {
-            const messageElement = document.querySelector('.axios-message');
-            if (messageElement) {
-                messageElement.innerHTML = message;
-            }
-        }
-        if (messageContainer.style.display !== 'block') {
-            messageContainer.style.display = 'block';
-            setTimeout(() => {
-                messageContainer.style.display = 'none';
-            }, 3000);
-        }
+    const errorData = error.response ? error.response.data : null;
+    const message = errorData && errorData.message ? errorData.message : error;
+    if (message) {
+        window.$alertMessage(message);
     }
 }
 

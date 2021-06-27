@@ -1,5 +1,4 @@
 const express = require('express');
-const User = require('./models').User;
 const Controllers = require('./config/controllerProvider');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -14,7 +13,8 @@ router.get('/ping', () => Controllers.Mailer.welcomeEmail());
     router.post('/auth/login', (req, res) => Controllers.Auth.login(req, res));
     router.post('/auth/logout', (req, res) => Controllers.Auth.logout(req, res));
     router.get('/auth/verify-email/:userId/:hash', (req, res) => Controllers.Auth.verifyEmail(req, res));
-    router.post('/auth/change-email', (req, res) => Controllers.Auth.changeEmail(req, res));
+    router.post('/auth/change-email', auth, (req, res) => Controllers.Auth.changeEmail(req, res));
+    router.put('/auth/user', auth, (req, res) => Controllers.Auth.updateUser(req, res));
 }
 /* Auth Routes */
 
@@ -23,12 +23,6 @@ router.get('/ping', () => Controllers.Mailer.welcomeEmail());
     router.get('/analytics', auth, (req, res) => Controllers.Analytics.index(req, res));
 }
 /* Analytics Routes */
-
-/* Settings Routes */
-{
-    router.get('/settings/user', auth, (req, res) => Controllers.Settings.show(req, res));
-}
-/* Settings Routes */
 
 /* Mailer Routes */
 {

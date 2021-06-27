@@ -11,6 +11,7 @@ class Dashboard extends BaseHelper {
 
     getAnalytics() {
         this.props.mediaCount();
+        console.log(localStorage.getItem('accessToken').length);
     }
 
     render() {

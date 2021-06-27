@@ -137,6 +137,51 @@ class AuthController extends AuthHelper {
     changeEmail(request, response) {
         console.log(request.user);
     }
+
+    async updateUser(request, response) {
+        const params = request.body;
+        const user = await User.findOne({where: {id: request.user.id}});
+        let message = '';
+
+        const updated = await user.update({ name: params.name })
+            .catch(error => {
+                logger.error(error);
+                message = 'Profile update failed!';
+                return false;
+            });
+
+        const passwordUpdated = updated ? await this.updatePassword(user, params) : false;
+        const tokens = updated ? this.getAuthToken(user) : {};
+
+        if (updated && !passwordUpdated) {
+            message = 'Failed to update password';
+        }
+
+        return response.status(200).json({
+            success: updated,
+            password_success: passwordUpdated,
+            token: tokens.accessToken,
+            message,
+        });
+    }
+
+    async updatePassword(user, params) {
+        const { old_password, new_password } = params;
+        if (old_password && new_password) {
+            if (this.checkPassword(user, old_password)) {
+                const updated = await user.update({password: new_password})
+                    .catch(error => {
+                        logger.error(error);
+                        return false;
+                    });
+                user.password = new_password;
+                this.encryptPassword(user);
+                return updated;
+            }
+            return false;
+        }
+        return true;
+    }
 }
 
 const Auth = new AuthController();

@@ -15,6 +15,7 @@ router.get('/ping', () => Controllers.Mailer.welcomeEmail());
     router.get('/auth/verify-email/:userId/:hash', (req, res) => Controllers.Auth.verifyEmail(req, res));
     router.post('/auth/change-email', auth, (req, res) => Controllers.Auth.changeEmail(req, res));
     router.put('/auth/user', auth, (req, res) => Controllers.Auth.updateUser(req, res));
+    router.post('/auth/hash', auth, (req, res) => Controllers.Auth.checkHash(req, res));
 }
 /* Auth Routes */
 

@@ -17,7 +17,7 @@ class BaseHelper extends React.Component {
         this.setState({ formParams })
     }
 
-    validate = (form) => {
+    validate = () => {
         const formData = this.state.formParams;
 
         const errors = this.validateForms(formData);

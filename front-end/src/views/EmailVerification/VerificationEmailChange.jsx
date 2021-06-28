@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import BaseHelper from '../../components/common/BaseHelper';
 import BaseInput from '../../components/common/BaseInput';
 import { BaseButton } from '../../components/common/BaseLayoutFeatures';
-import { changeEmail } from '../../store';
+import { changeEmail, checkHashExpiry, logout } from '../../store';
 
 class VerificationEmailChange extends BaseHelper {
 
@@ -14,14 +15,44 @@ class VerificationEmailChange extends BaseHelper {
         },
         validated: false,
         pageName: 'email-change',
+        canUpdate: false,
+    }
+
+    componentDidMount() {
+        this.checkHash();
+    }
+
+    checkHash = () => {
+        checkHashExpiry(this.props.match.params.hash)
+            .then(response => {
+                this.setState({
+                    canUpdate: response.data.success
+                });
+            })
+            .catch(error => {
+                console.error(error);
+                setTimeout(() => {
+                    this.props.history.push('/');
+                }, 3000);
+            });
     }
 
     changeEmail = async () => {
         await this.validate();
-        if (this.state.validated) {
+        if (this.state.validated && this.state.canUpdate && !this.state.loading) {
             this.loading();
-            changeEmail()
-                .then(response => console.log(response))
+            changeEmail({
+                email: this.state.formParams.email,
+                hash: this.props.match.params.hash,
+            }).then(() => {
+                window.$alertMessage('Email changed, please login again');
+                setTimeout(() => {
+                    this.props.logout();
+                }, 3000);
+            }).catch(error => {
+                console.error(error);
+                this.loading();
+            });
         }
     }
 
@@ -56,4 +87,10 @@ class VerificationEmailChange extends BaseHelper {
     }
 }
 
-export default VerificationEmailChange;
+const mapDispatchToProps = dispatch => ({
+    logout: () => {
+        dispatch(logout());
+    }
+})
+
+export default connect(null, mapDispatchToProps)(VerificationEmailChange);

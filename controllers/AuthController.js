@@ -134,8 +134,35 @@ class AuthController extends AuthHelper {
         return response.status(200).json({ message: 'This link is no longer valid',  success: false });
     }
 
-    changeEmail(request, response) {
-        console.log(request.user);
+    async changeEmail(request, response) {
+        const email = request.body.email;
+        if (!email) {
+            return response.status(422).json({ message: 'Email is required' })
+        }
+        const alreadyUsed = await User.findOne({where: {email}});
+        if (alreadyUsed) {
+            return response.status(422)
+                .json({message: 'Email is already in use'});
+        }
+        const user = await User.findOne({where: {id: request.user.id}});
+        const updated = await user.update({email})
+            .then(() => true)
+            .catch(error => {
+                logger.error(error);
+                return false;
+            });
+        if (updated) {
+            const hash = request.body.hash;
+            if (hash) {
+                VerificationToken.destroy({where: {token: hash}});
+            }
+            return response
+                .status(200)
+                .json({success: true});
+        }
+        return response
+            .status(500)
+            .json({message: 'Failed to update'});
     }
 
     async updateUser(request, response) {
@@ -181,6 +208,28 @@ class AuthController extends AuthHelper {
             return false;
         }
         return true;
+    }
+
+    async checkHash(request, response) {
+        const hash = request.body.hash;
+        const hashRow = await VerificationToken.findOne({
+            where: {
+                token: hash,
+                userId: request.user.id
+            }
+        });
+
+        if (hashRow) {
+            const expiryDate = hashRow.expiry;
+            if (moment().isAfter(moment(expiryDate))) {
+                return response.status(500).json({message: 'Link is not usable'});
+            }
+        }
+        return response.status(hashRow ? 200 : 500)
+            .json({
+                success: hashRow ? true : false,
+                message: hashRow ? 'Link usable' : 'Link is invalid'
+            })
     }
 }
 

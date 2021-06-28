@@ -25,8 +25,10 @@ export const logout = () => {
     return function (dispatch) {
         axios.post('auth/logout')
             .then(response => {
+                console.log(response);
                 if (response.data.success) {
                     localStorage.removeItem('accessToken');
+                    console.log('success');
                     dispatch({ type: UN_AUTHORIZE })
                 }
             }).catch(error => console.error(error));
@@ -70,10 +72,11 @@ export const changeEmailMail = () => {
     })
 }
 
-export const changeEmail = (email) => {
+export const changeEmail = (payload) => {
     return new Promise((resolve, reject) => {
         const headers = { headers: { noLoading: true } };
-        axios.post('/auth/change-email', {email}, headers)   
+        const { hash, email } = payload;
+        axios.post('auth/change-email', {email, hash}, headers)   
             .then(response => resolve(response))
             .catch(error => reject(error));
     })
@@ -95,6 +98,14 @@ export const updateUser = (payload) => {
                 console.log(error);
             })
     }
+}
+
+export const checkHashExpiry = (hash) => {
+    return new Promise((resolve, reject) => {
+        axios.post('auth/hash', { hash })
+            .then(response => resolve(response))
+            .catch(error => reject(error));
+    })
 }
 
 function handleAuthResponse(response, dispatch) {

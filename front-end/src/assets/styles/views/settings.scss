@@ -53,6 +53,9 @@
                 }
                 .section-body {
                     padding: 1.5rem 0;
+                    .settings-cropper {
+                        margin: 15px 0;
+                    }
                     .input-group {
                         width: max-content;
                         display: flex;
@@ -64,7 +67,7 @@
                             }
                             .base-input-container {
                                 border: 1px solid $alternateBorder;
-                                width: max-content;
+                                width: 100%;
                                 margin: 10px 0 !important;
                                 .base-input {
                                     border-radius: 2px;
@@ -94,7 +97,7 @@
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1142px) {
     .settings-container {
         .settings-content {
             .settings-sidebar {
@@ -122,6 +125,10 @@
                         }
                     }
                 }
+            }
+            .settings-cropper {
+                display: flex;
+                justify-content: center;
             }
         }
     }

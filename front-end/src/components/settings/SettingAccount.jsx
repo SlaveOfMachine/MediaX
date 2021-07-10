@@ -5,7 +5,7 @@ import BaseHelper from '../common/BaseHelper';
 import { connect } from 'react-redux';
 import BaseConfirmModal from '../common/BaseConfirmModal';
 import { changeEmailMail, updateUser } from '../../store/actions/userActions';
-import Icon from '@mdi/react';
+import BasePictureCropper from '../common/BasePictureCropper';
 
 class SettingAccount extends BaseHelper {
     state = {
@@ -78,6 +78,9 @@ class SettingAccount extends BaseHelper {
                     <div className="section-title">ACCOUNT</div>
                 </div>
                 <div className="section-body">
+                    <div className="settings-cropper">
+                        <BasePictureCropper />
+                    </div>
                     <div className="input-group">
                         <div className="input-label">
                             <label htmlFor='name' className="base-label">Name</label>

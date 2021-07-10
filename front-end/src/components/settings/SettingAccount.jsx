@@ -1,10 +1,11 @@
 import React from 'react';
 import BaseInput from '../common/BaseInput';
-import { BaseButton } from '../common/BaseLayoutFeatures';
+import { BaseButton, BaseTooltip } from '../common/BaseLayoutFeatures';
 import BaseHelper from '../common/BaseHelper';
 import { connect } from 'react-redux';
 import BaseConfirmModal from '../common/BaseConfirmModal';
 import { changeEmailMail, updateUser } from '../../store/actions/userActions';
+import Icon from '@mdi/react';
 
 class SettingAccount extends BaseHelper {
     state = {
@@ -95,7 +96,7 @@ class SettingAccount extends BaseHelper {
                                 placeholder='Enter email'
                                 id='email'
                                 name='email'
-                                toggleText='Change'
+                                toggleIcon='mdiCircleEditOutline'
                                 disabled={true}
                                 value={ email }
                                 onInputChange={ this.handleInputs }
@@ -105,7 +106,10 @@ class SettingAccount extends BaseHelper {
                     </div>
                     <div className="input-group">
                         <div className="input-label">
-                            <label htmlFor='password' className="base-label">Password</label>
+                            <label htmlFor='password' className="base-label" style={{display: 'flex', justifyContent: 'space-between'}}>
+                                <div>Password</div>
+                                <BaseTooltip message="Not required to change other information" />
+                            </label>
                             <BaseInput
                                 placeholder='Enter new password'
                                 id='new_password'
@@ -116,7 +120,7 @@ class SettingAccount extends BaseHelper {
                                 onInputChange={ this.handleInputs }
                             />
                         </div>
-                        <div className="input-label">
+                        <div className="input-label" style={{position: 'relative', top: '5px'}}>
                             <label htmlFor='old_password' className="base-label">Confirm Old Password</label>
                             <BaseInput
                                 placeholder='Confirm old password'

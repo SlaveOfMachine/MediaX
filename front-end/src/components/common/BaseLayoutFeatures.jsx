@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import defaultUser from '../../assets/icons/defaultUser.svg';
+import Icon from '@mdi/react';
 
 function Navbar(props) {
     const [expanded, toggle] = useState(false);
@@ -117,6 +118,26 @@ function BaseSpinner() {
     )
 }
 
+function BaseTooltip(props) {
+    const { message, iconPath } = props;
+    const iconContainer = require('@mdi/js/mdi');
+    const icon = iconContainer[iconPath] || iconContainer.mdiInformationVariant;
+
+    const [show, toggle] = useState(false);
+    return <div className="base-tooltip">
+        <div
+            className="base-tooltip-icon"
+            onMouseEnter={() => { toggle(true) }}
+            onMouseLeave={() => { toggle(false) }}
+        >
+            <Icon path={icon} size={1} />
+        </div>
+        <div className="base-tooltip-message" style={{display: show ? "block" : "none"}}>
+            { message }
+        </div>
+    </div>
+}
+
 export {
     Navbar,
     Loader,
@@ -124,4 +145,5 @@ export {
     PageNotFound,
     BaseCard,
     BaseButton,
+    BaseTooltip,
 }

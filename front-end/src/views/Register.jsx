@@ -81,7 +81,7 @@ class Register extends BaseHelper {
                                     type={showPassword ? 'text' : 'password'}
                                     error={errors.password}
                                     eventTriggered={this.passwordTypeSwitch}
-                                    toggleText={showPassword ? 'HIDE' : 'SHOW'}
+                                    toggleIcon={showPassword ? 'mdiEye' : 'mdiEyeOff'}
                                 />
                                 <BaseInput
                                     className='base-input auth-input'

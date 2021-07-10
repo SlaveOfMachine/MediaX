@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from '@mdi/react';
 
 class BaseInput extends React.Component {
     state =  {
@@ -34,7 +35,7 @@ class BaseInput extends React.Component {
             type,
             value,
             error,
-            toggleText,
+            toggleIcon,
             label,
             id,
             disabled,
@@ -59,7 +60,7 @@ class BaseInput extends React.Component {
                     />
                     <ShowToggle
                         event={this.iconEvent}
-                        toggleText={toggleText}
+                        toggleIcon={toggleIcon}
                     />
                 </div>
                 <div className="error-message">
@@ -71,9 +72,11 @@ class BaseInput extends React.Component {
 }
 
 function ShowToggle(props) {
-    if (props.toggleText) {
+    const iconContainer = require('@mdi/js/mdi');
+    const icon = iconContainer[props.toggleIcon] || iconContainer.mdiAlertCircle;
+    if (props.toggleIcon) {
         return <div onClick={props.event} className='base-input-toggle'>
-            { props.toggleText }
+            <Icon path={icon} size={1} />
         </div>
     }
     return null;

@@ -16,7 +16,7 @@
         border-radius: 0px;
         margin: 5px 0;
         padding: 10px 0px;
-        width: 100%;
+        width: 87%;
         color: $mainLight;
         &:focus {
             outline: none !important;
@@ -27,17 +27,19 @@
         }
     }
     .base-input-toggle {
-        height: max-content;
+        height: 100%;
+        background: transparent;
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1.5px;
         cursor: pointer;
-        position: relative;
+        position: absolute;
         top: 0;
         bottom: 0;
-        right: 0.8rem;
+        right: 10px;
         margin: auto;
-        margin-left: 5px;
+        display: flex;
+        align-items: center;
     }
 }
 
@@ -233,6 +235,21 @@
     border: 1px solid $mainBorder;
     border-radius: 10px;
     border-top-color: $alternateBorder;
+}
+
+.base-tooltip {
+    position: relative;
+    .base-tooltip-message {
+        position: absolute;
+        background: $mainCard;
+        padding: 10px;
+        border-radius: 3px;
+        z-index: 10;
+        width: max-content;
+        line-height: 20px;
+        margin: auto;
+        word-break: keep-all;
+    }
 }
 
 @media (max-width: 960px) {

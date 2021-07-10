@@ -65,7 +65,7 @@ class Login extends BaseHelper {
                                     onEnterPressed={this.login}
                                     type={showPassword ? 'text' : 'password'}
                                     error={errors.password}
-                                    toggleText={showPassword ? 'HIDE' : 'SHOW'}
+                                    toggleIcon={showPassword ? 'mdiEye' : 'mdiEyeOff'}
                                     eventTriggered={this.passwordTypeSwitch}
                                 />
                             </div>

@@ -21,6 +21,7 @@ class SettingAccount extends BaseHelper {
         pageName: 'setting-profile',
         emailDialog: false,
         loading: false,
+        showPassword: false,
     }
 
     componentDidMount() {
@@ -71,7 +72,7 @@ class SettingAccount extends BaseHelper {
 
     render() {
         const { name, email, new_password, old_password } = this.state.formParams;
-        const { errors } = this.state;
+        const { errors, showPassword } = this.state;
         return (
             <div className="settings-section">
                 <div className="section-head">
@@ -109,27 +110,37 @@ class SettingAccount extends BaseHelper {
                     </div>
                     <div className="input-group">
                         <div className="input-label">
-                            <label htmlFor='password' className="base-label" style={{display: 'flex', justifyContent: 'space-between'}}>
+                            <label htmlFor='password' className="base-label">
                                 <div>Password</div>
-                                <BaseTooltip message="Not required to change other information" />
                             </label>
                             <BaseInput
                                 placeholder='Enter new password'
                                 id='new_password'
                                 name='new_password'
-                                type='password'
+                                type={showPassword ? 'text' : 'password'}
+                                toggleIcon={showPassword ? 'mdiEye' : 'mdiEyeOff'}
                                 value={ new_password }
                                 error={ errors.new_password }
                                 onInputChange={ this.handleInputs }
+                                eventTriggered={this.passwordTypeSwitch}
                             />
                         </div>
-                        <div className="input-label" style={{position: 'relative', top: '5px'}}>
-                            <label htmlFor='old_password' className="base-label">Confirm Old Password</label>
+                        <div className="input-label">
+                            <label
+                                htmlFor='old_password'
+                                className="base-label"
+                                style={{display: "flex", justifyContent: "space-between"}}
+                            >
+                                <div>Confirm Old Password</div>
+                                <div style={{ position: 'absolute', right: 0, bottom: '-5px' }}>
+                                    <BaseTooltip message="Not required to change other information" />
+                                </div>
+                            </label>
                             <BaseInput
                                 placeholder='Confirm old password'
                                 id='old_password'
                                 name='old_password'
-                                type='password'
+                                type={showPassword ? 'text' : 'password'}
                                 value={ old_password }
                                 error={ errors.old_password }
                                 onInputChange={ this.handleInputs }

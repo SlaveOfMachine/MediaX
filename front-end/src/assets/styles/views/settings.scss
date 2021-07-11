@@ -48,7 +48,7 @@
                 width: 100%;
                 .section-head {
                     padding: 1.5rem 0;
-                    font-size: 2rem;
+                    font-size: 1.2rem;
                     border-bottom: 1px solid $alternateBorder;
                 }
                 .section-body {
@@ -57,28 +57,10 @@
                         margin: 15px 0;
                     }
                     .input-group {
-                        width: max-content;
-                        display: flex;
-                        justify-content: space-around;
-                        margin-bottom: 30px;
-                        .input-label {
-                            &:nth-child(2) {
-                                padding: 0 40px;
-                            }
-                            .base-input-container {
-                                border: 1px solid $alternateBorder;
-                                width: 100%;
-                                margin: 10px 0 !important;
-                                .base-input {
-                                    border-radius: 2px;
-                                    font-size: 16px;
-                                    margin: 0.2rem 1rem;
-                                }
-                                .base-input::placeholder {
-                                    color: $mainLight;
-                                }
-                            }
-                        }
+                        display: grid;
+                        grid-template-columns: 48% 48%;
+                        gap: 4%;
+                        padding-bottom: 30px;
                     }
                 }
                 .section-foot {
@@ -100,8 +82,16 @@
 @media (max-width: 1142px) {
     .settings-container {
         .settings-content {
+            display: flex;
+            flex-direction: column;
             .settings-sidebar {
-                width: 57px;
+                width: 100%;
+                position: relative;
+                margin: inherit !important;
+                top: 0px;
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
                 .sidebar-content {
                     padding: 1em;
                     .sidebar-label {
@@ -111,11 +101,11 @@
             }
             .settings-body {
                 flex-direction: column;
-                width: 100%;
-                margin: 5em 2em 5em calc(57px + 2em);
+                width: 90%;
+                margin: auto !important;
+                padding: 15px;
                 .input-group {
-                    flex-direction: column;
-                    width: 100% !important;
+                    grid-template-columns: 100% !important;
                     .input-label {
                         &:nth-child(2) {
                             padding: 0 !important;

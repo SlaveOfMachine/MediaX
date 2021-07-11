@@ -131,38 +131,41 @@ class AuthController extends AuthHelper {
                 }
             }
         }
-        return response.status(200).json({ message: 'This link is no longer valid',  success: false });
+        return response.status(404).json({ message: 'This link is no longer valid',  success: false });
     }
 
     async changeEmail(request, response) {
-        const email = request.body.email;
-        if (!email) {
-            return response.status(422).json({ message: 'Email is required' })
-        }
-        const alreadyUsed = await User.findOne({where: {email}});
-        if (alreadyUsed) {
-            return response.status(422)
-                .json({message: 'Email is already in use'});
-        }
-        const user = await User.findOne({where: {id: request.user.id}});
-        const updated = await user.update({email})
-            .then(() => true)
-            .catch(error => {
-                logger.error(error);
-                return false;
-            });
-        if (updated) {
-            const hash = request.body.hash;
-            if (hash) {
-                VerificationToken.destroy({where: {token: hash}});
+        const hash = request.body.hash || '';
+        const tokenRow = await VerificationToken.findOne({where: {token: hash}});
+        let changeResponse = { status: 404, message: 'This link is no longer valid',  success: false };
+        console.log(hash);
+        if (tokenRow && !moment().isSameOrAfter(tokenRow.expiry) && hash) {
+            const email = request.body.email;
+            if (!email) {
+                changeResponse.status = 422;
+                changeResponse.message = 'Email is required';
+            } else {
+                const alreadyUsed = await User.findOne({where: {email}});
+                if (alreadyUsed) {
+                    changeResponse.status = 422;
+                    changeResponse.message = 'Email is already in use';
+                } else {
+                    const user = await User.findOne({where: {id: request.user.id}});
+                    const updated = await user.update({email})
+                        .then(() => true)
+                        .catch(error => {
+                            logger.error(error);
+                            return false;
+                        });
+                    if (updated) {
+                        await tokenRow.destroy({where: {token: hash}});
+                        changeResponse.success = true;
+                        changeResponse.status = 200;
+                    }
+                }
             }
-            return response
-                .status(200)
-                .json({success: true});
         }
-        return response
-            .status(500)
-            .json({message: 'Failed to update'});
+        return response.status(changeResponse.status).json(changeResponse);
     }
 
     async updateUser(request, response) {
